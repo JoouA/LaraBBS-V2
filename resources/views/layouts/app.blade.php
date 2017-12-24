@@ -18,6 +18,7 @@
         @include('layouts._head')
 
         <div class="container">
+            @include('layouts._message')
             @yield('content')
         </div>
         @include('layouts._footer')
