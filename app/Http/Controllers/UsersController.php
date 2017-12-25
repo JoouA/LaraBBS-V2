@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use App\Handlers\ImageUploadHandlers;
 
 class UsersController extends Controller
 {
@@ -35,18 +36,35 @@ class UsersController extends Controller
         return view('users.edit',compact('user'));
     }
 
+
     /**
      * @param UserRequest $request
      * @param User $user
+     * @param ImageUploadHandlers $uploader
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(UserRequest $request,User $user)
+    public function update(UserRequest $request,User $user,ImageUploadHandlers $uploader)
     {
+        $data = $request->all();
+
         $this->authorize('update',$user);
 
-        $user->update($request->all());
+        if ($request->file('avatar')){
+            $result = $uploader->save($request->file('avatar'),'avatars',$user->id,362,362);
 
-        return redirect()->route('users.show',$user->id)->with('success','更新个人资料成功!');
+            if ($result){
+                $data['avatar'] = $result['path'];
+            }
+        }
+
+        try{
+            $user->update($data);
+            return redirect()->route('users.show',$user->id)->with('success','更新个人资料成功!');
+        }catch (\Exception $exception){
+            return back()->with('danger','更新个人信息失败');
+        }
+
+
     }
 }

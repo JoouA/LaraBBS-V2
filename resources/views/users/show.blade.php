@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <div class="media">
                     <div align="center">
-                        <img src="https://fsdhubcdn.phphub.org/uploads/images/201709/20/1/PtDKbASVcz.png?imageView2/1/w/600/h/600"
+                        <img src="{{ $user->avatar }}"
                              class="thumbnail img-responsive" alt="avatar" width="300px" height="300px">
                     </div>
                     <div class="media-body">
