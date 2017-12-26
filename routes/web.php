@@ -28,7 +28,6 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-
 //users
 Route::resource('users','UsersController',['only' => ['show','update','edit']]);
 
