@@ -31,4 +31,7 @@ Route::post('register', 'Auth\RegisterController@register');
 //users
 Route::resource('users','UsersController',['only' => ['show','update','edit']]);
 
+// topics
+Route::resource('topics','TopicsController');
+
 
