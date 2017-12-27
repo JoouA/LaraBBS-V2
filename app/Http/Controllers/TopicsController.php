@@ -18,13 +18,15 @@ class TopicsController extends Controller
 
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Topic $topic
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request,Topic $topic)
     {
-        $topics = Topic::with(['user','category'])->paginate();
+//        $topics = Topic::with(['user','category'])->paginate();
+        // withOrder 定义在Topic里面的scopeWithOrder方法
+        $topics = $topic->withOrder($request->input('order'))->paginate();
 
         return view('topics.index',compact('topics'));
     }
