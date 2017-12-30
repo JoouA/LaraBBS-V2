@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TopicRequest;
+use App\Models\Category;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
@@ -32,24 +34,35 @@ class TopicsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 创建topic
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('topics.create',compact('categories'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param TopicRequest $request
+     * @param Topic $topic
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(TopicRequest $request,Topic $topic)
     {
-        //
+        try{
+            $topic->fill($request->all());
+
+            $topic->user_id = \Auth::id();
+
+            $topic->save();
+
+            return redirect()->route('topics.show',$topic->id)->with('success','专题创建成功!');
+        }catch(\Exception $e){
+
+            return back()->withInput($request->all())->with('danger','专题创建失败!');
+        }
+
     }
 
     /**
@@ -60,7 +73,7 @@ class TopicsController extends Controller
      */
     public function show(Topic $topic)
     {
-        //
+        dd($topic);
     }
 
     /**

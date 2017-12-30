@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Topic;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\TopicObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Topic::observe(TopicObserver::class);
+
         Carbon::setLocale('zh');
     }
 
