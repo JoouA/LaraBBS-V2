@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Handlers\ImageUploadHandlers;
 use App\Http\Requests\TopicRequest;
 use App\Models\Category;
 use App\Models\Topic;
@@ -37,10 +38,10 @@ class TopicsController extends Controller
      * 创建topic
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Topic $topic)
     {
         $categories = Category::all();
-        return view('topics.create',compact('categories'));
+        return view('topics.create_and_edit',compact('categories','topic'));
     }
 
     /**
@@ -108,5 +109,30 @@ class TopicsController extends Controller
     public function destroy(Topic $topic)
     {
         //
+    }
+
+
+    public function uploadImage(Request $request,ImageUploadHandlers $uploader)
+    {
+
+        $data = [
+            'success'   => false,
+            'msg'       => '上传失败!',
+            'file_path' => ''
+        ];
+
+        if ($file = $request->file('upload_file')){
+            // 保存照片到本地
+            $result = $uploader->save($file,'topics',\Auth::id(),1024);
+
+            if ($request){
+                $data['file_path'] = $result['path'];
+                $data['msg'] = '上传成功';
+                $data['success'] = true;
+            }
+        }
+
+        return $data;
+
     }
 }
