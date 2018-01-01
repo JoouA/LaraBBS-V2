@@ -74,7 +74,7 @@ class TopicsController extends Controller
      */
     public function show(Topic $topic)
     {
-        dd($topic);
+      return view('topics.show',compact('topic'));
     }
 
     /**
@@ -112,6 +112,11 @@ class TopicsController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @param ImageUploadHandlers $uploader
+     * @return array
+     */
     public function uploadImage(Request $request,ImageUploadHandlers $uploader)
     {
 
