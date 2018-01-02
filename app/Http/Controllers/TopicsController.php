@@ -7,7 +7,6 @@ use App\Http\Requests\TopicRequest;
 use App\Models\Category;
 use App\Models\Topic;
 use Illuminate\Http\Request;
-use Mockery\Exception;
 
 class TopicsController extends Controller
 {
@@ -106,20 +105,27 @@ class TopicsController extends Controller
         try{
             $topic->update($request->all());
             return redirect()->route('topics.show',$topic->id)->with('success','主题更新成功!');
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','主题更新失败!');
         }
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
+     * @param Topic $topic
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Topic $topic)
     {
-        //
+        $this->authorize('destroy',$topic);
+
+        try{
+            $topic->delete();
+            return redirect()->route('topics.index')->with('success','主题删除成功!');
+        }catch (\Exception $e){
+            return back()->with('danger','主题删除失败');
+        }
+
     }
 
 

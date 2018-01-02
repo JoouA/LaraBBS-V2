@@ -26,7 +26,7 @@ class TopicPolicy
      */
     public function update(User $user,Topic $topic)
     {
-        return $user->id == $topic->user_id;
+        return $user->isAuthorOf($topic);
     }
 
     /**
@@ -36,6 +36,16 @@ class TopicPolicy
      */
     public function edit(User $user,Topic $topic)
     {
-        return $user->id == $topic->user_id;
+        return $user->isAuthorOf($topic);
+    }
+
+    /**
+     * @param User $user
+     * @param Topic $topic
+     * @return bool
+     */
+    public function destroy(User $user,Topic $topic)
+    {
+        return $user->isAuthorOf($topic);
     }
 }
