@@ -7,6 +7,7 @@ use App\Http\Requests\TopicRequest;
 use App\Models\Category;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class TopicsController extends Controller
 {
@@ -38,10 +39,10 @@ class TopicsController extends Controller
      * 创建topic
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(Topic $topic)
+    public function create()
     {
         $categories = Category::all();
-        return view('topics.create_and_edit',compact('categories','topic'));
+        return view('topics.create',compact('categories'));
     }
 
     /**
@@ -78,26 +79,36 @@ class TopicsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
+     * 编辑topic
+     * @param Topic $topic
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Topic $topic)
     {
-        //
+        $this->authorize('edit',$topic);
+
+        $categories = Category::all();
+        return view('topics.edit',compact('topic','categories'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
+     * 更新Topic
+     * @param Request $request
+     * @param Topic $topic
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Topic $topic)
     {
-        //
+        $this->authorize('update',$topic);
+
+        try{
+            $topic->update($request->all());
+            return redirect()->route('topics.show',$topic->id)->with('success','主题更新成功!');
+        }catch (Exception $e){
+            return back()->with('danger','主题更新失败!');
+        }
     }
 
     /**
@@ -113,6 +124,7 @@ class TopicsController extends Controller
 
 
     /**
+     * 编辑器的图片上传
      * @param Request $request
      * @param ImageUploadHandlers $uploader
      * @return array
