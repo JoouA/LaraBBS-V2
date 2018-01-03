@@ -58,7 +58,7 @@ class TopicsController extends Controller
 
             $topic->save();
 
-            return redirect()->route('topics.show',$topic->id)->with('success','专题创建成功!');
+            return redirect()->to($topic->link()) ->with('success','专题创建成功!');
         }catch(\Exception $e){
 
             return back()->withInput($request->all())->with('danger','专题创建失败!');
@@ -74,6 +74,11 @@ class TopicsController extends Controller
      */
     public function show(Topic $topic)
     {
+        // url 矫正
+        if (!empty($topic->slug) && $topic->slug != \request()->slug ){
+            return redirect()->to($topic->link(),301);
+        }
+
       return view('topics.show',compact('topic'));
     }
 
@@ -104,7 +109,7 @@ class TopicsController extends Controller
 
         try{
             $topic->update($request->all());
-            return redirect()->route('topics.show',$topic->id)->with('success','主题更新成功!');
+            return redirect()->to($topic->link())->with('success','主题更新成功!');
         }catch (\Exception $e){
             return back()->with('danger','主题更新失败!');
         }
