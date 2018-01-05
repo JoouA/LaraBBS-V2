@@ -61,9 +61,26 @@ class Topic extends Model
     }
 
 
+    /**
+     * 生成topic的链接
+     * @param array $params
+     * @return string
+     */
     public function link($params = [])
     {
         return route('topics.show',array_merge([$this->id,$this->slug],$params));
     }
+
+
+    /**
+     * 一个专题有多少回复
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function replies()
+    {
+        return $this->hasMany(Reply::class,'topic_id','id');
+    }
+
+
 
 }

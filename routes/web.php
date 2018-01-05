@@ -11,8 +11,6 @@
 |
 */
 
-use App\Handlers\SlugTranslateHandler;
-
 Route::get('/','TopicsController@index')->name('root');
 
 // Authentication Routes...
@@ -34,18 +32,11 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::resource('users','UsersController',['only' => ['show','update','edit']]);
 
 // topics
-Route::resource('topics','TopicsController',['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('topics','TopicsController',['except' => ['show']]);
 
 Route::get('topics/{topic}/{slug?}','TopicsController@show')->name('topics.show');
 
 Route::post('upload_image','TopicsController@uploadImage')->name('topics.upload_image');
 
 Route::resource('categories','CategoriesController',['only' => ['show']]);
-
-Route::get('translate',function (){
-    $translate = new SlugTranslateHandler();
-
-    $result = $translate->translate('智障');
-});
-
 

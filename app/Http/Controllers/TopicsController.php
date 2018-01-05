@@ -79,7 +79,9 @@ class TopicsController extends Controller
             return redirect()->to($topic->link(),301);
         }
 
-      return view('topics.show',compact('topic'));
+        $replies = $topic->replies()->get();
+
+      return view('topics.show',compact('topic','replies'));
     }
 
     /**

@@ -22,7 +22,12 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show',compact('user'));
+
+        $topics = $user->topics()->orderBy('updated_at','desc')->paginate(5);
+
+        $replies = $user->replies()->with('topic')->orderBy('created_at','desc')->paginate(5);
+
+        return view('users.show',compact('user','topics','replies'));
     }
 
     /**
