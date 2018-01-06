@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Topic;
+use App\Policies\ReplyPolicy;
 use App\Policies\TopicPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -19,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
         'App\Models\User' => UserPolicy::class,
         'App\Models\Topic' => TopicPolicy::class,
+        'App\Models\Reply' => ReplyPolicy::class,
     ];
 
     /**

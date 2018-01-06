@@ -35,6 +35,10 @@ class RepliesController extends Controller
 
     public function destroy(Reply $reply)
     {
+        $this->authorize('destroy',$reply);
+
         $reply->delete();
+
+        return redirect()->to($reply->topic->link())->with('success','删除评论成功!');
     }
 }
