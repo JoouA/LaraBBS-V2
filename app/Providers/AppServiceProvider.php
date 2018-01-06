@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Topic;
+use App\Models\Reply;
+use App\Observers\ReplyObserver;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
@@ -18,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Topic::observe(TopicObserver::class);
+
+        Reply::observe(ReplyObserver::class);
 
         Carbon::setLocale('zh');
     }

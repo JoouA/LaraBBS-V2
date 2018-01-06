@@ -8,7 +8,7 @@ class Reply extends Model
 {
     protected $table = 'replies';
 
-    protected $fillable = ['content'];
+    protected $fillable = ['content','topic_id'];
 
     /**
      *这个回复属于哪一个主题

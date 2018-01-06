@@ -79,9 +79,9 @@ class TopicsController extends Controller
             return redirect()->to($topic->link(),301);
         }
 
-        $replies = $topic->replies()->get();
+        $replies = $topic->replies()->with('user')->orderBy('created_at','desc')->paginate(5);
 
-      return view('topics.show',compact('topic','replies'));
+        return view('topics.show',compact('topic','replies'));
     }
 
     /**
