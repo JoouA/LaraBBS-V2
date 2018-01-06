@@ -73,7 +73,7 @@ class User extends Authenticatable
     }
 
     /**
-     *
+     *标记已读的消息
      */
     public function markAsRead()
     {

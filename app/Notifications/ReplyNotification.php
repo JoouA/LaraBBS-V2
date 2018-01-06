@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ReplyNotification extends Notification
+class ReplyNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -33,7 +33,7 @@ class ReplyNotification extends Notification
      */
     public function via($notifiable)
     {
-//        return ['mail'];
+//        return ['database','mail'];
         return ['database'];
     }
 
@@ -45,10 +45,11 @@ class ReplyNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        // $this->reply() 这样获取的是belongsTo的信息 而不是topic这个对象
+        $url = $this->reply->topic->link(['#reply'.$this->reply->id]);
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('你的话题有新回复！')
+                    ->action('查看回复', $url);
     }
 
 
