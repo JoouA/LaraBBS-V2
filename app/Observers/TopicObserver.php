@@ -37,6 +37,7 @@ class TopicObserver
         // 如果没有slug字段没有内容，使用翻译
         // 当文章第一次被创建的时候，在saving过程中还没有id，所以在在saving中调用队列会报错
         if (! $topic->slug){
+            echo 'jobs';
             dispatch(new TranslateSlug($topic));
             //$topic->slug = app(SlugTranslateHandler::class)->translate($topic->title);
         }
