@@ -2,39 +2,19 @@
 
 return array(
 
-    /*
-     * Package URI
-     *
-     * @type string
-     */
+    // 后台的 URI 入口
     'uri' => 'admin',
 
-    /*
-     *  Domain for routing.
-     *
-     *  @type string
-     */
+    // 后台专属域名，没有的话可以留空
     'domain' => '',
 
-    /*
-     * Page title
-     *
-     * @type string
-     */
-    'title' => config('app.name'),
+    // 应用名称，在页面标题和左上角站点名称处显示
+    'title' => env('APP_NAME', 'Laravel'),
 
-    /*
-     * The path to your model config directory
-     *
-     * @type string
-     */
+    // 模型配置信息文件存放目录
     'model_config_path' => config_path('administrator'),
 
-    /*
-     * The path to your settings config directory
-     *
-     * @type string
-     */
+    // 配置信息文件存放目录
     'settings_config_path' => config_path('administrator/settings'),
 
     /*

@@ -84,4 +84,36 @@ class User extends Authenticatable
         $this->save();
         $this->unreadNotifications->markAsRead();
     }
+
+
+    /**
+     * 修复后台上传的保存到数据库的url地址
+     * @param $path
+     * @return string
+     */
+    public function setAvatarAttribute($path)
+    {
+        // 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
+        if (! starts_with($path,'http')){
+            // 拼接完整的 URL
+            $path = config('app.url') .'/uploads/images/avatars/adminChange/'.  $path;
+        }
+
+        $this->attributes['avatar'] = $path;
+    }
+
+    /**
+     * 设置后台修改密码的时候密码不进行加密的问题
+     * @param $password
+     */
+    public function setPasswordAttribute($password)
+    {
+        // 如果值的长度等于 60，即认为是已经做过加密的情况
+        if (strlen($password)!= 60){
+            // != 60就加密
+            $password =  bcrypt($password);
+        }
+
+        $this->attributes['password'] = $password;
+    }
 }
