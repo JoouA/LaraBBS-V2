@@ -22,7 +22,8 @@ return [
      *
      */
     'scheme' => [
-        'BaiWu' => '100',
+//        'BaiWu' => '100',
+        'Aliyun' => '100',
     ],
 
     /*
@@ -198,8 +199,8 @@ return [
         'Aliyun' => [
             'accessKeyId'       => env('ALIKEY'),
             'accessKeySecret'   => env('ALIKEYSECRET'),
-            'signName'          => 'your_sms_sign_name',
-            'regionId'          => 'cn-shenzhen',
+            'signName'          => 'LaraBBS涛',
+            'regionId'          => env('ALITEM'),
         ],
         /*
          * -----------------------------------

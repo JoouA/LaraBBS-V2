@@ -74,7 +74,7 @@ return [
         'length'        => 4,
         'validMinutes'  => 5,
         'repeatIfValid' => false,
-        'maxAttempts'   => 5,
+        'maxAttempts'   => 0,
     ],
 
     /*
@@ -111,6 +111,7 @@ return [
     |
     */
     'templates' => [
+        'Aliyun' => 'SMS_121135613'
     ],
 
     /*
