@@ -5,6 +5,8 @@ use App\Models\Reply;
 
 $factory->define(Reply::class, function (Faker $faker) {
 
+    $faker = \Faker\Factory::create('zh-CN');
+
     $time = $faker->dateTimeThisMonth();
 
     return [

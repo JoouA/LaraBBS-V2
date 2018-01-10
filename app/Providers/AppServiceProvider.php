@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Topic;
 use App\Models\Reply;
 use App\Observers\ReplyObserver;
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // 视图共享变量
+        $categories = Category::all();
+        view()->share('categories',$categories);
+
         Topic::observe(TopicObserver::class);
 
         Reply::observe(ReplyObserver::class);

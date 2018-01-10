@@ -65,7 +65,13 @@ class LoginController extends Controller
 
     protected function attemptLogin(Request $request)
     {
-       $field =  filter_var($request->get('username'),FILTER_VALIDATE_EMAIL)? 'email' : 'name';
+        if (filter_var($request->get('username'),FILTER_VALIDATE_EMAIL)){
+            $field = 'email';
+        }elseif (strlen($request->get('username')) == 11){
+            $field = 'mobile';
+        }else{
+            $field = 'name';
+        }
 
         $data = [
              $field => $request->get('username'),

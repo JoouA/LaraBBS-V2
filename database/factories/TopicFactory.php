@@ -5,6 +5,8 @@ use App\Models\Topic;
 
 $factory->define(Topic::class, function (Faker $faker) {
 
+    $faker = \Faker\Factory::create('zh_CN');
+
     $sentence = $faker->sentence();
 
     //随机获取一个月内的时间

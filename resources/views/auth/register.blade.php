@@ -60,7 +60,19 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
+                            <label for="mobile" class="col-md-4 control-label">手机号码</label>
 
+                            <div class="col-md-6">
+                                <input id="mobile" type="text" class="form-control" name="mobile" required>
+
+                                @if ($errors->has('mobile'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('mobile') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group {{ $errors->has('captcha') ? 'has-error' : '' }}">
                             <label for="captcha" class="col-md-4 control-label">验证码</label>
 
@@ -77,7 +89,18 @@
                                      onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新生成验证码" height="40px" width="170px">
                             </div>
                         </div>
-
+                        <div class="form-group{{ $errors->has('verifyCode') ? ' has-error' : '' }}">
+                            <label for="verifyCode" class="col-md-4 control-label">短信验证码：</label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text"  name="verifyCode" required>
+                                @if($errors->has('verifyCode'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('verifyCode') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <button class="btn btn-success" type="button" id="sendVerifySmsButton">获取手机验证码</button>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary btn-block">
@@ -91,4 +114,42 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('js/laravel-sms.js') }}"></script>
+    <script type="text/javascript">
+        $('#sendVerifySmsButton').sms({
+            //laravel csrf token
+            //该token仅为laravel框架的csrf验证,不是access_token!
+            token       : "{{csrf_token()}}",
+
+            //请求时间间隔
+            interval    : 60,
+
+            //语音验证码
+            voice       : false,
+
+            //请求参数
+            requestData : {
+                //手机号
+                mobile: function () {
+                    return $('input[name=mobile]').val();
+                },
+                // 验证码
+                captcha: function () {
+                    return $('input[name=captcha]').val();
+                },
+                //手机号的检测规则
+                mobile_rule: 'mobile_required',
+                //验证码验证规则
+                captcha_rule: 'captcha_required',
+            },
+
+            //消息展示方式(默认为alert)
+            notify      : function (msg, type) {
+                alert(msg);
+            },
+        });
+    </script>
 @endsection

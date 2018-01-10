@@ -16,6 +16,8 @@ use Carbon\Carbon;
 $factory->define(App\Models\User::class, function (Faker $faker) {
     static $password;
 
+    $faker = \Faker\Factory::create('zh_CN');
+
     $now = Carbon::now()->toDateTimeString();
     return [
         'name' => $faker->name,
@@ -23,6 +25,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'password' => $password?: $password=bcrypt('secret'),
         'remember_token' => str_random(10),
         'introduction' => $faker->sentence(),
+        'mobile' => $faker->phoneNumber,
         'created_at' => $now,
         'updated_at' => $now,
     ];

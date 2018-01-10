@@ -45,6 +45,7 @@ class UsersTableSeeder extends Seeder
         $user->name = 'jooua';
         $user->email = 'tangwtna@163.com';
         $user->password = bcrypt('123456');
+        $user->mobile = '13858987011';
         $user->avatar = 'http://larabbs.work/uploads/images/avatars/201712/25/1_dfdf2d183dde73881dac8beccd4e4419.jpg';
         $user->save();
 
