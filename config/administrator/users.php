@@ -50,6 +50,10 @@ return [
             'title' => '邮箱'
         ],
 
+        'mobile' => [
+            'title' => '手机号码',
+        ],
+
         'operation' => [
             'title' => '管理',
             'sortable' => false,
@@ -62,6 +66,9 @@ return [
         ],
         'email' => [
             'title' => '邮箱',
+        ],
+        'mobile' => [
+            'title' => '手机号码',
         ],
         'password' => [
             'title' => '密码',

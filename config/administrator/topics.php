@@ -25,8 +25,7 @@ return [
             'output'   => function ($value, $model) {
                 $avatar = $model->user->avatar;
                 $value = empty($avatar) ? 'N/A' : '<img src="'.$avatar.'" style="height:22px;width:22px"> ' . $model->user->name;
-                return  '<a href="users/'.$model->user->id.'">'.$value.'</a>';
-//                return model_link($value, $model);
+                return  '<a href="users/'.$model->user->id.'" target="_blank">'.$value.'</a>';
             },
         ],
         'category' => [
@@ -37,7 +36,7 @@ return [
             },
         ],
         'reply_count' => [
-            'title'    => '评论',
+            'title'    => '评论数量',
         ],
         'operation' => [
             'title'  => '管理',
@@ -49,19 +48,20 @@ return [
             'title'    => '标题',
         ],
         'user' => [
-            'title'              => '用户',
-            'type'               => 'relationship',
-            'name_field'         => 'name',
+            'title' => '用户',
+            'type' => 'relationship',
+            'name_field' => 'name',
 
             // 自动补全，对于大数据量的对应关系，推荐开启自动补全，
             // 可防止一次性加载对系统造成负担
-            'autocomplete'       => true,
+            'autocomplete' => true,
 
             // 自动补全的搜索字段
-            'search_fields'      => ["CONCAT(id, ' ', name)"],
+            'search_fields' => ["CONCAT(id,'',name)"],
 
             // 自动补全排序
             'options_sort_field' => 'id',
+
         ],
         'category' => [
             'title'              => '分类',

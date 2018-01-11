@@ -3,42 +3,41 @@
 use App\Models\Reply;
 
 return [
-    'title'   => '回复',
-    'single'  => '回复',
-    'model'   => Reply::class,
+    'title' => '回复',
+    'single' => '回复',
+    'model' => Reply::class,
 
     'columns' => [
-
         'id' => [
             'title' => 'ID',
         ],
         'content' => [
-            'title'    => '内容',
+            'title' => '内容',
             'sortable' => false,
-            'output'   => function ($value, $model) {
-                return '<div style="max-width:220px">' . $value . '</div>';
+            'output' => function($value){
+                return '<div style="max-width: 120px">' . $value . '</div>';
             },
         ],
         'user' => [
-            'title'    => '作者',
+            'title' => '用户',
             'sortable' => false,
-            'output'   => function ($value, $model) {
+            'output' => function($value,$model){
                 $avatar = $model->user->avatar;
                 $value = empty($avatar) ? 'N/A' : '<img src="'.$avatar.'" style="height:22px;width:22px"> ' . $model->user->name;
-                return model_link($value, $model);
+                return '<a href="users/'.$model->user->id.'" target="_blank">' . $value . '</a>';
             },
         ],
         'topic' => [
-            'title'    => '话题',
+            'title' => '话题',
             'sortable' => false,
-            'output'   => function ($value, $model) {
-                return '<div style="max-width:260px">' . model_admin_link($model->topic->title, $model->topic) . '</div>';
-            },
+            'output' => function($value,$model){
+                return '<div style="max-width:260px">' . model_admin_link(e($model->topic->title), $model->topic) . '</div>';
+            }
         ],
         'operation' => [
-            'title'  => '管理',
+            'title' => '管理',
             'sortable' => false,
-        ],
+        ]
     ],
     'edit_fields' => [
         'user' => [
