@@ -39,5 +39,9 @@ return [
         'appid' => env('BAIDU_TRANSLATE_APPID'),
         'key'   => env('BAIDU_TRANSLATE_KEY'),
     ],
-
+    'github' => [
+        'client_id' => env('GITHUBID'),
+        'client_secret' => env('GITHUBSECRET'),
+        'redirect' => env('GITHUBCALLBACK'),
+    ],
 ];

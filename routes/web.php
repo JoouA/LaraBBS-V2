@@ -17,6 +17,9 @@ Route::get('/','TopicsController@index')->name('root');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('/oauth/github', 'Auth\LoginController@redirectToProvider')->name('github.provider');
+Route::get('/oauth/github/callback', 'Auth\LoginController@handleProviderCallback')->name('github.callback');
+
 
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
