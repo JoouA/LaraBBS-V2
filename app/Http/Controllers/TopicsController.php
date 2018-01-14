@@ -6,6 +6,7 @@ use App\Handlers\ImageUploadHandlers;
 use App\Http\Requests\TopicRequest;
 use App\Models\Category;
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TopicsController extends Controller
@@ -23,15 +24,18 @@ class TopicsController extends Controller
     /**
      * @param Request $request
      * @param Topic $topic
+     * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request,Topic $topic)
+    public function index(Request $request,Topic $topic,User $user)
     {
 //        $topics = Topic::with(['user','category'])->paginate();
         // withOrder 定义在Topic里面的scopeWithOrder方法
         $topics = $topic->withOrder($request->input('order'))->paginate();
 
-        return view('topics.index',compact('topics'));
+        $active_users = $user->getActiveUsers();
+
+        return view('topics.index',compact('topics','active_users'));
     }
 
     /**
