@@ -1,1 +1,0 @@
-artisan schedule:run

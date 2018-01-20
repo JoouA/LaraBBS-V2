@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // 视图共享变量
         $categories = Category::all();
-        view()->share('categories',$categories);
+        view()->share('categories', $categories);
 
         Topic::observe(TopicObserver::class);
 
@@ -38,11 +38,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if($this->app->environment() !== 'production'){
+        if ($this->app->environment() !== 'production') {
             $this->app->register(IdeHelperServiceProvider::class);
         }
 
-        if (app()->isLocal()){
+        if (app()->isLocal()) {
             $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
         }
     }

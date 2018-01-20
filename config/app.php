@@ -173,6 +173,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Toplan\PhpSms\PhpSmsServiceProvider::class,
         Toplan\Sms\SmsManagerServiceProvider::class,
+        Overtrue\LaravelSingleSession\SingleSessionServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -181,7 +182,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
     ],
 
     /*

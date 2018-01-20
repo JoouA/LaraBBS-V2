@@ -52,9 +52,3 @@ Route::group(['middleware' => ['auth','web']],function (){
 });
 
 Route::get('permission-denied','PagesController@permissionDenied')->name('permission-denied');
-
-Route::get('test',function (\App\Models\User $user){
-    $active_users =  $user->calculateActiveUsers();
-
-    dd($active_users);
-});
