@@ -33,6 +33,6 @@ class ClearLastSession
         // 先清除上一个的session
         $lastSessionId = Cache::pull($last_session_id);
 
-        Session::getHandler()->destroy($last_session_id);
+        Session::getHandler()->destroy($lastSessionId);
     }
 }

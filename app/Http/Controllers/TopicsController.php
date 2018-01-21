@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Handlers\ImageUploadHandlers;
 use App\Http\Requests\TopicRequest;
 use App\Models\Category;
+use App\Models\Link;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class TopicsController extends Controller
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request,Topic $topic,User $user)
+    public function index(Request $request,Topic $topic,User $user,Link $link)
     {
 //        $topics = Topic::with(['user','category'])->paginate();
         // withOrder 定义在Topic里面的scopeWithOrder方法
@@ -35,7 +36,9 @@ class TopicsController extends Controller
 
         $active_users = $user->getActiveUsers();
 
-        return view('topics.index',compact('topics','active_users'));
+        $links = $link->getAllCached();
+
+        return view('topics.index',compact('topics','active_users','links'));
     }
 
     /**

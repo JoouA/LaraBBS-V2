@@ -26,3 +26,23 @@
         </div>
     </div>
 @endif
+
+@if(count($links))
+    <div class="panel panel-default">
+        <div class="panel-body active-users">
+
+            <div class="text-center">资源推荐</div>
+            @foreach($links as $link)
+                <hr>
+                <a href="{{ $link->link }}" class="media" target="_blank">
+                    <div class="media-left media-middle">
+                        <img src="{{ $link->avatar }}" width="24px" height="24px" alt="{{$link->title}}" class="media-object">
+                    </div>
+                    <div class="media-body">
+                        <span class="media-heading">{{ $link->title }}</span>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+    </div>
+@endif

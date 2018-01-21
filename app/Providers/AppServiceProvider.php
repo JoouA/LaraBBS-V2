@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Link;
 use App\Models\Topic;
 use App\Models\Reply;
+use App\Observers\LinkObserver;
 use App\Observers\ReplyObserver;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Carbon\Carbon;
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         Topic::observe(TopicObserver::class);
 
         Reply::observe(ReplyObserver::class);
+
+        Link::observe(LinkObserver::class);
 
         Carbon::setLocale('zh');
     }
