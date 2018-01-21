@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\LastActivedAtHelper;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -10,6 +11,7 @@ use App\Models\Traits\ActiveUserHelper;
 class User extends Authenticatable
 {
     use HasRoles;
+    use LastActivedAtHelper;
 
     use ActiveUserHelper;
 

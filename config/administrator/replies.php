@@ -15,7 +15,7 @@ return [
             'title' => '内容',
             'sortable' => false,
             'output' => function($value){
-                return '<div style="max-width: 120px">' . $value . '</div>';
+                return '<div style="max-width: 120px">' . $value  . '</div>';
             },
         ],
         'user' => [

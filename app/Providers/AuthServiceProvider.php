@@ -35,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         RedisManager::auth(function ($request){
-            return true;
+            return \Auth::user()->hasRole('Founder');
         });
     }
 }
