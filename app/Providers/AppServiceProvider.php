@@ -6,8 +6,10 @@ use App\Models\Category;
 use App\Models\Link;
 use App\Models\Topic;
 use App\Models\Reply;
+use App\Models\User;
 use App\Observers\LinkObserver;
 use App\Observers\ReplyObserver;
+use App\Observers\UserObserver;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
@@ -31,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         Reply::observe(ReplyObserver::class);
 
         Link::observe(LinkObserver::class);
+
+        User::observe(UserObserver::class);
 
         Carbon::setLocale('zh');
     }
