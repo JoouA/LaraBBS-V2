@@ -26,6 +26,7 @@ class TopicsController extends Controller
      * @param Request $request
      * @param Topic $topic
      * @param User $user
+     * @param Link $link
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request,Topic $topic,User $user,Link $link)

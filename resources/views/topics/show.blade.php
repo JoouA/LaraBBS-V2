@@ -64,7 +64,6 @@
 
             </div>
         </div>
-
         {{--用户回复列表--}}
         <div class="panel panel-default topic-reply">
             <div class="panel-body">
