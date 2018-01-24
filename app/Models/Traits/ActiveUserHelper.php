@@ -16,7 +16,7 @@ trait ActiveUserHelper
     // 配置信息
     protected $topic_weight = 4;
     protected $reply_weight = 1;
-    protected $pass_days = 10;
+    protected $pass_days = 30;
     protected $user_number = 6;
 
     //缓存相关的配置
@@ -53,15 +53,17 @@ trait ActiveUserHelper
     {
         $this->calculateTopicScore();
         $this->calculateReplyScore();
+
         // 数组按照得分排序
         $users = array_sort($this->users, function ($user) {
             return $user['score'];
         });
 
+
         // 我们需要的是倒序，高分靠前，第二个参数为保持数组的 KEY 不变
         $users = array_reverse($users, true);
 
-        // 只获取我们想要的数量
+        // 只获取我们想要的数量,从0开始取，保持key不变
         $users = array_slice($users, 0, $this->user_number, true);
 
         // 新建一个空合集
@@ -90,6 +92,7 @@ trait ActiveUserHelper
             ->where('created_at', '>=', Carbon::now()->subDays($this->pass_days))
             ->groupBy('user_id')
             ->get();
+        // "select user_id,count(*) as topic_count from `topics` where `created_at` >= ? group by `user_id`"
         // 根据话题数量计算得分
         foreach ($topic_users as $topic_user) {
             $this->users[$topic_user->user_id]['score'] = $topic_user->topic_count * $this->topic_weight;
