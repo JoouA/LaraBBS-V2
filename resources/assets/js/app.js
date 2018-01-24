@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+require('../share/js/social-share.min');
+
 window.Vue = require('vue');
 
 /**

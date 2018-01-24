@@ -64,6 +64,9 @@
 
             </div>
         </div>
+        <div class="panel panel-default">
+            <div class="social-share"></div>
+        </div>
         {{--用户回复列表--}}
         <div class="panel panel-default topic-reply">
             <div class="panel-body">

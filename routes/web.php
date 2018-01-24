@@ -52,3 +52,5 @@ Route::group(['middleware' => ['auth','web']],function (){
 });
 
 Route::get('permission-denied','PagesController@permissionDenied')->name('permission-denied');
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('founder');
