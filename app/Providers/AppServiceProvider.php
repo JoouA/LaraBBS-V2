@@ -25,8 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // 视图共享变量
-        $categories = Category::all();
-        view()->share('categories', $categories);
+        \View::composer('layouts._header',function ($view){
+            $categories = Category::all();
+            $view->with('categories', $categories);
+        });
 
         Topic::observe(TopicObserver::class);
 
