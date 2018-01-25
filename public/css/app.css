@@ -9292,3 +9292,12 @@ body {
   font-size: 0.9em;
 }
 
+#scrollUp {
+  background-image: url(/images/top.png?9dcee4403f0b41f6acc9a73a212d75ed);
+  bottom: 20px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
+  text-indent: -999999px;
+}
+

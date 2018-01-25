@@ -963,7 +963,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(43);
+module.exports = __webpack_require__(45);
 
 
 /***/ }),
@@ -981,7 +981,12 @@ __webpack_require__(11);
 
 __webpack_require__(35);
 
-window.Vue = __webpack_require__(36);
+//esaing.js
+__webpack_require__(36);
+//scrollUp.js
+__webpack_require__(37);
+
+window.Vue = __webpack_require__(38);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -989,7 +994,7 @@ window.Vue = __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(39));
+Vue.component('example-component', __webpack_require__(41));
 
 var app = new Vue({
   el: '#app'
@@ -32278,6 +32283,408 @@ var QRCode;!function () {
 
 /***/ }),
 /* 36 */
+/***/ (function(module, exports) {
+
+/*
+ * jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
+ *
+ * Uses the built in easing capabilities added In jQuery 1.1
+ * to offer multiple easing options
+ *
+ * TERMS OF USE - jQuery Easing
+ * 
+ * Open source under the BSD License. 
+ * 
+ * Copyright © 2008 George McGinley Smith
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ * 
+ * Redistributions of source code must retain the above copyright notice, this list of 
+ * conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list 
+ * of conditions and the following disclaimer in the documentation and/or other materials 
+ * provided with the distribution.
+ * 
+ * Neither the name of the author nor the names of contributors may be used to endorse 
+ * or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ *  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ *  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+*/
+
+// t: current time, b: begInnIng value, c: change In value, d: duration
+jQuery.easing['jswing'] = jQuery.easing['swing'];
+
+jQuery.extend(jQuery.easing, {
+	def: 'easeOutQuad',
+	swing: function swing(x, t, b, c, d) {
+		//alert(jQuery.easing.default);
+		return jQuery.easing[jQuery.easing.def](x, t, b, c, d);
+	},
+	easeInQuad: function easeInQuad(x, t, b, c, d) {
+		return c * (t /= d) * t + b;
+	},
+	easeOutQuad: function easeOutQuad(x, t, b, c, d) {
+		return -c * (t /= d) * (t - 2) + b;
+	},
+	easeInOutQuad: function easeInOutQuad(x, t, b, c, d) {
+		if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+		return -c / 2 * (--t * (t - 2) - 1) + b;
+	},
+	easeInCubic: function easeInCubic(x, t, b, c, d) {
+		return c * (t /= d) * t * t + b;
+	},
+	easeOutCubic: function easeOutCubic(x, t, b, c, d) {
+		return c * ((t = t / d - 1) * t * t + 1) + b;
+	},
+	easeInOutCubic: function easeInOutCubic(x, t, b, c, d) {
+		if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
+		return c / 2 * ((t -= 2) * t * t + 2) + b;
+	},
+	easeInQuart: function easeInQuart(x, t, b, c, d) {
+		return c * (t /= d) * t * t * t + b;
+	},
+	easeOutQuart: function easeOutQuart(x, t, b, c, d) {
+		return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+	},
+	easeInOutQuart: function easeInOutQuart(x, t, b, c, d) {
+		if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
+		return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+	},
+	easeInQuint: function easeInQuint(x, t, b, c, d) {
+		return c * (t /= d) * t * t * t * t + b;
+	},
+	easeOutQuint: function easeOutQuint(x, t, b, c, d) {
+		return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+	},
+	easeInOutQuint: function easeInOutQuint(x, t, b, c, d) {
+		if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
+		return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+	},
+	easeInSine: function easeInSine(x, t, b, c, d) {
+		return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+	},
+	easeOutSine: function easeOutSine(x, t, b, c, d) {
+		return c * Math.sin(t / d * (Math.PI / 2)) + b;
+	},
+	easeInOutSine: function easeInOutSine(x, t, b, c, d) {
+		return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+	},
+	easeInExpo: function easeInExpo(x, t, b, c, d) {
+		return t == 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
+	},
+	easeOutExpo: function easeOutExpo(x, t, b, c, d) {
+		return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+	},
+	easeInOutExpo: function easeInOutExpo(x, t, b, c, d) {
+		if (t == 0) return b;
+		if (t == d) return b + c;
+		if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+		return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+	},
+	easeInCirc: function easeInCirc(x, t, b, c, d) {
+		return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+	},
+	easeOutCirc: function easeOutCirc(x, t, b, c, d) {
+		return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+	},
+	easeInOutCirc: function easeInOutCirc(x, t, b, c, d) {
+		if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+		return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+	},
+	easeInElastic: function easeInElastic(x, t, b, c, d) {
+		var s = 1.70158;var p = 0;var a = c;
+		if (t == 0) return b;if ((t /= d) == 1) return b + c;if (!p) p = d * .3;
+		if (a < Math.abs(c)) {
+			a = c;var s = p / 4;
+		} else var s = p / (2 * Math.PI) * Math.asin(c / a);
+		return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+	},
+	easeOutElastic: function easeOutElastic(x, t, b, c, d) {
+		var s = 1.70158;var p = 0;var a = c;
+		if (t == 0) return b;if ((t /= d) == 1) return b + c;if (!p) p = d * .3;
+		if (a < Math.abs(c)) {
+			a = c;var s = p / 4;
+		} else var s = p / (2 * Math.PI) * Math.asin(c / a);
+		return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+	},
+	easeInOutElastic: function easeInOutElastic(x, t, b, c, d) {
+		var s = 1.70158;var p = 0;var a = c;
+		if (t == 0) return b;if ((t /= d / 2) == 2) return b + c;if (!p) p = d * (.3 * 1.5);
+		if (a < Math.abs(c)) {
+			a = c;var s = p / 4;
+		} else var s = p / (2 * Math.PI) * Math.asin(c / a);
+		if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+		return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
+	},
+	easeInBack: function easeInBack(x, t, b, c, d, s) {
+		if (s == undefined) s = 1.70158;
+		return c * (t /= d) * t * ((s + 1) * t - s) + b;
+	},
+	easeOutBack: function easeOutBack(x, t, b, c, d, s) {
+		if (s == undefined) s = 1.70158;
+		return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+	},
+	easeInOutBack: function easeInOutBack(x, t, b, c, d, s) {
+		if (s == undefined) s = 1.70158;
+		if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
+		return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+	},
+	easeInBounce: function easeInBounce(x, t, b, c, d) {
+		return c - jQuery.easing.easeOutBounce(x, d - t, 0, c, d) + b;
+	},
+	easeOutBounce: function easeOutBounce(x, t, b, c, d) {
+		if ((t /= d) < 1 / 2.75) {
+			return c * (7.5625 * t * t) + b;
+		} else if (t < 2 / 2.75) {
+			return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+		} else if (t < 2.5 / 2.75) {
+			return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+		} else {
+			return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+		}
+	},
+	easeInOutBounce: function easeInOutBounce(x, t, b, c, d) {
+		if (t < d / 2) return jQuery.easing.easeInBounce(x, t * 2, 0, c, d) * .5 + b;
+		return jQuery.easing.easeOutBounce(x, t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+	}
+});
+
+/*
+ *
+ * TERMS OF USE - EASING EQUATIONS
+ * 
+ * Open source under the BSD License. 
+ * 
+ * Copyright © 2001 Robert Penner
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ * 
+ * Redistributions of source code must retain the above copyright notice, this list of 
+ * conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list 
+ * of conditions and the following disclaimer in the documentation and/or other materials 
+ * provided with the distribution.
+ * 
+ * Neither the name of the author nor the names of contributors may be used to endorse 
+ * or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ *  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ *  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ */
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+// extension:
+$.fn.scrollEnd = function (callback, timeout) {
+    $(this).scroll(function () {
+        var $this = $(this);
+        if ($this.data('scrollTimeout')) {
+            clearTimeout($this.data('scrollTimeout'));
+        }
+        $this.data('scrollTimeout', setTimeout(callback, timeout));
+    });
+};
+
+(function ($, window, document) {
+    'use strict';
+
+    // Main function
+
+    $.fn.scrollUp = function (options) {
+
+        // Ensure that only one scrollUp exists
+        if (!$.data(document.body, 'scrollUp')) {
+            $.data(document.body, 'scrollUp', true);
+            $.fn.scrollUp.init(options);
+        }
+    };
+
+    // Init
+    $.fn.scrollUp.init = function (options) {
+
+        // Define vars
+        var o = $.fn.scrollUp.settings = $.extend({}, $.fn.scrollUp.defaults, options),
+            triggerVisible = false,
+            animIn,
+            animOut,
+            animSpeed,
+            scrollDis,
+            scrollEvent,
+            scrollTarget,
+            $self;
+
+        // Create element
+        if (o.scrollTrigger) {
+            $self = $(o.scrollTrigger);
+        } else {
+            $self = $('<a/>', {
+                id: o.scrollName,
+                href: '#top'
+            });
+        }
+
+        // Set scrollTitle if there is one
+        if (o.scrollTitle) {
+            $self.attr('title', o.scrollTitle);
+        }
+
+        $self.appendTo('body');
+
+        // If not using an image display text
+        if (!(o.scrollImg || o.scrollTrigger)) {
+            $self.html(o.scrollText);
+        }
+
+        // Minimum CSS to make the magic happen
+        $self.css({
+            display: 'none',
+            position: 'fixed',
+            zIndex: o.zIndex
+        });
+
+        // Active point overlay
+        if (o.activeOverlay) {
+            $('<div/>', {
+                id: o.scrollName + '-active'
+            }).css({
+                position: 'absolute',
+                'top': o.scrollDistance + 'px',
+                width: '100%',
+                borderTop: '1px dotted' + o.activeOverlay,
+                zIndex: o.zIndex
+            }).appendTo('body');
+        }
+
+        // Switch animation type
+        switch (o.animation) {
+            case 'fade':
+                animIn = 'fadeIn';
+                animOut = 'fadeOut';
+                animSpeed = o.animationSpeed;
+                break;
+
+            case 'slide':
+                animIn = 'slideDown';
+                animOut = 'slideUp';
+                animSpeed = o.animationSpeed;
+                break;
+
+            default:
+                animIn = 'show';
+                animOut = 'hide';
+                animSpeed = 0;
+        }
+
+        // If from top or bottom
+        if (o.scrollFrom === 'top') {
+            scrollDis = o.scrollDistance;
+        } else {
+            scrollDis = $(document).height() - $(window).height() - o.scrollDistance;
+        }
+
+        // Scroll function
+        scrollEvent = $(window).scroll(function () {
+            if ($(window).scrollTop() > scrollDis) {
+                if (!triggerVisible) {
+                    $self[animIn](animSpeed);
+                    triggerVisible = true;
+                }
+            } else {
+                if (triggerVisible) {
+                    $self[animOut](animSpeed);
+                    triggerVisible = false;
+                }
+            }
+        });
+
+        // how to call it (with a 1500ms timeout):
+        $(window).scrollEnd(function () {
+            $self[animOut](animSpeed);
+            triggerVisible = false;
+        }, 1200);
+
+        if (o.scrollTarget) {
+            if (typeof o.scrollTarget === 'number') {
+                scrollTarget = o.scrollTarget;
+            } else if (typeof o.scrollTarget === 'string') {
+                scrollTarget = Math.floor($(o.scrollTarget).offset().top);
+            }
+        } else {
+            scrollTarget = 0;
+        }
+
+        // To the top
+        $self.click(function (e) {
+            e.preventDefault();
+
+            $('html, body').animate({
+                scrollTop: scrollTarget
+            }, o.scrollSpeed, o.easingType);
+        });
+    };
+
+    // Defaults
+    $.fn.scrollUp.defaults = {
+        scrollName: 'scrollUp', // Element ID
+        scrollDistance: 300, // Distance from top/bottom before showing element (px)
+        scrollFrom: 'top', // 'top' or 'bottom'
+        scrollSpeed: 300, // Speed back to top (ms)
+        easingType: 'linear', // Scroll to top easing (see http://easings.net/)
+        animation: 'fade', // Fade, slide, none
+        animationSpeed: 200, // Animation in speed (ms)
+        scrollTrigger: false, // Set a custom triggering element. Can be an HTML string or jQuery object
+        scrollTarget: false, // Set a custom target element for scrolling to. Can be element or number
+        scrollText: 'Scroll to top', // Text for element, can contain HTML
+        scrollTitle: false, // Set a custom <a> title if required. Defaults to scrollText
+        scrollImg: false, // Set true to use image
+        activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+        zIndex: 2147483647 // Z-Index for the overlay
+    };
+
+    // Destroy scrollUp plugin and clean all modifications to the DOM
+    $.fn.scrollUp.destroy = function (scrollEvent) {
+        $.removeData(document.body, 'scrollUp');
+        $('#' + $.fn.scrollUp.settings.scrollName).remove();
+        $('#' + $.fn.scrollUp.settings.scrollName + '-active').remove();
+
+        // If 1.7 or above use the new .off()
+        if ($.fn.jquery.split('.')[1] >= 7) {
+            $(window).off('scroll', scrollEvent);
+
+            // Else use the old .unbind()
+        } else {
+            $(window).unbind('scroll', scrollEvent);
+        }
+    };
+
+    $.scrollUp = $.fn.scrollUp;
+})(jQuery, window, document);
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43091,10 +43498,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(37).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(39).setImmediate))
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -43147,13 +43554,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(38);
+__webpack_require__(40);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -43346,15 +43753,15 @@ exports.clearImmediate = clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(40)
+var normalizeComponent = __webpack_require__(42)
 /* script */
-var __vue_script__ = __webpack_require__(41)
+var __vue_script__ = __webpack_require__(43)
 /* template */
-var __vue_template__ = __webpack_require__(42)
+var __vue_template__ = __webpack_require__(44)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -43393,7 +43800,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -43502,7 +43909,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43531,7 +43938,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -43574,7 +43981,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

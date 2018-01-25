@@ -9,6 +9,11 @@ require('./bootstrap');
 
 require('../share/js/social-share.min');
 
+//esaing.js
+require('./vendor/jquery.easing');
+//scrollUp.js
+require('./vendor/jquery.scrollUp');
+
 window.Vue = require('vue');
 
 /**

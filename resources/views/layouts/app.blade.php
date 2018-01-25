@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="{{ asset('css/app.css')  }}">
 
     @yield('styles')
-
 </head>
 <body>
     <div id="app" class="{{ route_class() }}-page">
@@ -36,7 +35,11 @@
 
     {{--script--}}
     <script src="{{ asset('js/app.js') }}"></script>
-
+    <script>
+        $(function(){
+            $.scrollUp();
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>
