@@ -64,10 +64,13 @@
 
             </div>
         </div>
+        <!--  zan list  -->
+         @include('topics._zan_box')
+        <!-- share -->
         <div class="panel panel-default">
             <div class="social-share"></div>
         </div>
-        {{--用户回复列表--}}
+        <!--用户回复列表-->
         <div class="panel panel-default topic-reply">
             <div class="panel-body">
                 @includeWhen(Auth::check(),'topics._reply_box',['topic' => $topic])

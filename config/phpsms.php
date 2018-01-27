@@ -22,8 +22,8 @@ return [
      *
      */
     'scheme' => [
-//        'BaiWu' => '100',
-        'Aliyun' => '100',
+        'Aliyun' => '50',
+        'BaiWu' => '50',
     ],
 
     /*
