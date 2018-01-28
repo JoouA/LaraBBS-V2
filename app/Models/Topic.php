@@ -81,6 +81,14 @@ class Topic extends Model
         return $this->hasMany(Reply::class,'topic_id','id');
     }
 
+    /**
+     * 用户赞
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function vote()
+    {
+        return $this->belongsToMany(User::class,'zans','topic_id','user_id')->withTimestamps();
+    }
 
 
 }

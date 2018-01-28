@@ -9,10 +9,12 @@ require('./bootstrap');
 
 require('../share/js/social-share.min');
 
-//esaing.js
+// esaing.js
 require('./vendor/jquery.easing');
-//scrollUp.js
+// scrollUp.js
 require('./vendor/jquery.scrollUp');
+// select2
+require('./vendor/select2');
 
 window.Vue = require('vue');
 

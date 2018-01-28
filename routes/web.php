@@ -36,12 +36,18 @@ Route::resource('users','UsersController',['only' => ['show','update','edit']]);
 
 // topics
 Route::resource('topics','TopicsController',['except' => ['show']]);
+//common
+Route::get('emojis','TopicsController@emojis')->name('topics.emojis');
+
+Route::post('topics/{topic}/vote','TopicsController@vote')->name('topics.vote');
 
 Route::get('topics/{topic}/{slug?}','TopicsController@show')->name('topics.show');
+
 
 Route::post('upload_image','TopicsController@uploadImage')->name('topics.upload_image');
 
 Route::resource('categories','CategoriesController',['only' => ['show']]);
+
 
 //replies
 Route::resource('replies','RepliesController',['only' => ['store','destroy'] ]);
@@ -53,4 +59,6 @@ Route::group(['middleware' => ['auth','web']],function (){
 
 Route::get('permission-denied','PagesController@permissionDenied')->name('permission-denied');
 
+
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('founder');
+

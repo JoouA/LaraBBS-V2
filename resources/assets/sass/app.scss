@@ -10,6 +10,11 @@
 
 //share
 @import "../share/css/share.min";
+// select2
+@import "../css/select/select2";
+// animate
+@import "../css/animate/animate";
+
 /* universal */
 
 body {
@@ -228,3 +233,67 @@ body {
   height: 38px;
   text-indent: -999999px;
 }
+
+//_box_zan
+.votes-container {
+  padding-top: 15px;
+}
+
+.padding-md {
+  padding: 15px;
+}
+
+.vote-box {
+  padding: 6px 20px;
+}
+
+.or {
+  position: relative;
+  float: left;
+  width: .3em;
+  height: 2.57142em;
+  z-index: 3;
+}
+
+.or:before {
+  position: absolute;
+  text-align: center;
+  border-radius: 500rem;
+  content: 'or';
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  text-shadow: none;
+  margin-top: -.922855em;
+  margin-left: -.802855em;
+  width: 1.78571em;
+  height: 1.78571em;
+  line-height: 1.78571em;
+  color: rgba(0, 0, 0, 0.4);
+  font-style: normal;
+  font-weight: 700;
+  -webkit-box-shadow: 0 0 0 1px transparent inset;
+  box-shadow: 0 0 0 1px transparent inset;
+}
+
+.voted-users {
+  padding: 25px 12px 5px;
+}
+
+.voted-users .avatar {
+  margin: 4px;
+}
+
+.avatar-middle {
+  width: 50px;
+  height: 50px;
+}
+
+.emoji {
+  width: 1.6em;
+  display: inline-block;
+  margin-bottom: 0;
+  margin-top: -5px;
+  margin-left: 5px;
+}
+

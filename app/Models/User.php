@@ -121,4 +121,22 @@ class User extends Authenticatable
 
         $this->attributes['password'] = $password;
     }
+
+    /**
+     * 用户的vote专题
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function votes()
+    {
+        return $this->belongsToMany(Topic::class,'zans','user_id','topic_id')->withTimestamps();
+    }
+
+    /**
+     * @param Topic $topic
+     * @return bool
+     */
+    public function isVote(Topic $topic)
+    {
+        return (bool)$this->votes()->where('topic_id',$topic->id)->count();
+    }
 }

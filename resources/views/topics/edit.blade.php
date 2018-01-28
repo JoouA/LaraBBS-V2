@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control" name="category_id" required>
+                                <select class="form-control basic-single" name="category_id" required>
                                     <option value="" hidden disabled selected>请选择分类</option>
                                     @foreach ($categories as $value)
                                         <option value="{{ $value->id }}" {{ $value->id == $topic->category_id ? 'selected' : '' }}>{{ $value->name }}</option>
@@ -54,6 +54,7 @@
     <script type="text/javascript"  src="{{ asset('js/uploader.js') }}"></script>
     <script type="text/javascript"  src="{{ asset('js/simditor.js') }}"></script>
 
+    <!-- Simditor -->
     <script>
         $(document).ready(function(){
             var editor = new Simditor({
@@ -67,6 +68,12 @@
                 },
                 pasteImage: true,
             });
+        });
+    </script>
+    <!-- select2 -->
+    <script>
+        $(document).ready(function () {
+            $('.basic-single').select2();
         });
     </script>
 @stop

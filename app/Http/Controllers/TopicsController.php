@@ -8,7 +8,10 @@ use App\Models\Category;
 use App\Models\Link;
 use App\Models\Topic;
 use App\Models\User;
+use App\Zan;
 use Illuminate\Http\Request;
+use Log;
+use Auth;
 
 class TopicsController extends Controller
 {
@@ -18,7 +21,7 @@ class TopicsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
 
@@ -29,7 +32,7 @@ class TopicsController extends Controller
      * @param Link $link
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request,Topic $topic,User $user,Link $link)
+    public function index(Request $request, Topic $topic, User $user, Link $link)
     {
 //        $topics = Topic::with(['user','category'])->paginate();
         // withOrder 定义在Topic里面的scopeWithOrder方法
@@ -39,7 +42,7 @@ class TopicsController extends Controller
 
         $links = $link->getAllCached();
 
-        return view('topics.index',compact('topics','active_users','links'));
+        return view('topics.index', compact('topics', 'active_users', 'links'));
     }
 
     /**
@@ -49,7 +52,7 @@ class TopicsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('topics.create',compact('categories'));
+        return view('topics.create', compact('categories'));
     }
 
     /**
@@ -57,19 +60,19 @@ class TopicsController extends Controller
      * @param Topic $topic
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(TopicRequest $request,Topic $topic)
+    public function store(TopicRequest $request, Topic $topic)
     {
-        try{
+        try {
             $topic->fill($request->all());
 
             $topic->user_id = \Auth::id();
 
             $topic->save();
 
-            return redirect()->to($topic->link()) ->with('success','专题创建成功!');
-        }catch(\Exception $e){
+            return redirect()->to($topic->link())->with('success', '专题创建成功!');
+        } catch (\Exception $e) {
 
-            return back()->withInput($request->all())->with('danger','专题创建失败!');
+            return back()->withInput($request->all())->with('danger', '专题创建失败!');
         }
 
     }
@@ -77,19 +80,28 @@ class TopicsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Topic  $topic
+     * @param  \App\Models\Topic $topic
      * @return \Illuminate\Http\Response
      */
     public function show(Topic $topic)
     {
         // url 矫正
-        if (!empty($topic->slug) && $topic->slug != \request()->slug ){
-            return redirect()->to($topic->link(),301);
+        if (!empty($topic->slug) && $topic->slug != \request()->slug) {
+            return redirect()->to($topic->link(), 301);
         }
 
-        $replies = $topic->replies()->with('user')->orderBy('created_at','desc')->paginate(5);
+        $replies = $topic->replies()->with('user')->orderBy('created_at', 'desc')->paginate(5);
 
-        return view('topics.show',compact('topic','replies'));
+        $vote_user_ids = Zan::where('topic_id',$topic->id)->orderBy('created_at','desc')->pluck('user_id');
+
+
+        $vote_users = collect();
+
+        foreach ($vote_user_ids as $vote_user_id){
+            $vote_users->push(User::find($vote_user_id));
+        }
+
+        return view('topics.show', compact('topic', 'replies','vote_users'));
     }
 
     /**
@@ -100,10 +112,10 @@ class TopicsController extends Controller
      */
     public function edit(Topic $topic)
     {
-        $this->authorize('edit',$topic);
+        $this->authorize('edit', $topic);
 
         $categories = Category::all();
-        return view('topics.edit',compact('topic','categories'));
+        return view('topics.edit', compact('topic', 'categories'));
     }
 
     /**
@@ -115,13 +127,13 @@ class TopicsController extends Controller
      */
     public function update(Request $request, Topic $topic)
     {
-        $this->authorize('update',$topic);
+        $this->authorize('update', $topic);
 
-        try{
+        try {
             $topic->update($request->all());
-            return redirect()->to($topic->link())->with('success','主题更新成功!');
-        }catch (\Exception $e){
-            return back()->with('danger','主题更新失败!');
+            return redirect()->to($topic->link())->with('success', '主题更新成功!');
+        } catch (\Exception $e) {
+            return back()->with('danger', '主题更新失败!');
         }
     }
 
@@ -132,13 +144,13 @@ class TopicsController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        $this->authorize('destroy',$topic);
+        $this->authorize('destroy', $topic);
 
-        try{
+        try {
             $topic->delete();
-            return redirect()->route('topics.index')->with('success','主题删除成功!');
-        }catch (\Exception $e){
-            return back()->with('danger','主题删除失败');
+            return redirect()->route('topics.index')->with('success', '主题删除成功!');
+        } catch (\Exception $e) {
+            return back()->with('danger', '主题删除失败');
         }
 
     }
@@ -150,20 +162,20 @@ class TopicsController extends Controller
      * @param ImageUploadHandlers $uploader
      * @return array
      */
-    public function uploadImage(Request $request,ImageUploadHandlers $uploader)
+    public function uploadImage(Request $request, ImageUploadHandlers $uploader)
     {
 
         $data = [
-            'success'   => false,
-            'msg'       => '上传失败!',
+            'success' => false,
+            'msg' => '上传失败!',
             'file_path' => ''
         ];
 
-        if ($file = $request->file('upload_file')){
+        if ($file = $request->file('upload_file')) {
             // 保存照片到本地
-            $result = $uploader->save($file,'topics',\Auth::id(),1024);
+            $result = $uploader->save($file, 'topics', \Auth::id(), 1024);
 
-            if ($request){
+            if ($request) {
                 $data['file_path'] = $result['path'];
                 $data['msg'] = '上传成功';
                 $data['success'] = true;
@@ -172,5 +184,44 @@ class TopicsController extends Controller
 
         return $data;
 
+    }
+
+    /**
+     * 用户Topic点赞
+     * @param Topic $topic
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function vote(Topic $topic)
+    {
+        $avatar = Auth::user()->avatar;
+        $vote_id = \request()->vote_user;
+        $topic_id = \request()->topic_id;
+        $user_link = route('users.show',Auth::id());
+
+        try{
+            $topic->vote()->toggle($vote_id);
+
+            return response()->json([
+                'vote_id' => $vote_id,
+                'topic_id' => $topic_id,
+                'status' => 'success',
+                'user_avatar' => $avatar,
+                'user_link' => $user_link,
+            ]);
+        }catch (\Exception $e){
+            Log::error($vote_id . ' id的用户赞' . $topic_id . ' id的专题失败');
+
+            return response()->json([
+                'vote_id' => $vote_id,
+                'topic_id' => $topic_id,
+                'status' => 'failed',
+            ]);
+        }
+
+    }
+
+    public function emojis()
+    {
+        return view('common.emoite');
     }
 }
