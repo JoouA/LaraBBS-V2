@@ -80,3 +80,7 @@
     </div>
 </div>
 @stop
+
+@section('scripts')
+    <script src="{{ asset('js/emoji-images.js') }}"></script>
+@endsection

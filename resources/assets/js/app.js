@@ -16,6 +16,7 @@ require('./vendor/jquery.scrollUp');
 // select2
 require('./vendor/select2');
 
+
 window.Vue = require('vue');
 
 /**

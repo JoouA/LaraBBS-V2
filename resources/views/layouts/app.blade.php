@@ -33,15 +33,35 @@
         @include('sudosu::user-selector')
     @endif
 
-    {{--script--}}
+    <!-- script -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/emoji-images.js') }}"></script>
+    <script src="{{ asset('assets/js/nprojress.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/larabbs.js') }}"></script>
-
+    <!-- scrollUp -->
     <script>
         $(function(){
             $.scrollUp();
         });
+    </script>
+    <script>
+        NProgress.configure({
+            template:"<div class='peg' role='bar' id='nprogress'></div>"
+        });
+        (function(){
+            document.onreadystatechange = function(){
+                NProgress.start();
+                console.log(document.readyState);
+                if(document.readyState == "Uninitialized"){
+                    NProgress.set(1);
+                }
+                if(document.readyState == "Interactive"){
+                    NProgress.set(0.5);
+                }
+                if(document.readyState == "complete"){
+                    NProgress.done();
+                }
+            }
+        })();
     </script>
     @yield('scripts')
 </body>
