@@ -55,14 +55,27 @@ $('#up-vote').click(function (event) {
     });
 });
 
-$('.biaoqing').mouseout(function (event) {
-    var target = $(event.target);
+$('#login-out').on('click', function(e) {
+    var langText = $(this).data('lang-loginout');
 
-    var content = target.val();
+    swal({
+        title: langText,
+        text: langText,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: "取消",
+        confirmButtonText: "退出",
+    }).then(function (result) {
+        if (result.value){
+            event.preventDefault();
+            document.getElementById('logout-form').submit();
+            console.log('logout success');
+        }else {
+            console.log('logout cancel');
+        }
+    });
 
-    var emojified = emoji(content, 'http://larabbs.work/assets/emoji/graphics/emojis/', 30);
-
-    target.val(emojified);
-
-    console.log(emojified);
+    return false;
 });

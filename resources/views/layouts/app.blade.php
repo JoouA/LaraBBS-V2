@@ -35,6 +35,8 @@
     <!-- script -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/js/nprojress.js') }}"></script>
+    <script src="{{ asset('assets/js/sweetalert2.js') }}"></script>
+    <script src="{{ asset('assets/js/core.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/larabbs.js') }}"></script>
     <script>
         (function(){

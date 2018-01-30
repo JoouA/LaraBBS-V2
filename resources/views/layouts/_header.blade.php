@@ -77,9 +77,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
+                                <a href="{{ route('logout') }}" id="login-out" data-lang-loginout="您真的要退出登录吗？">
                                     <span class="glyphicon glyphicon-log-out"></span>
                                     退出登录
                                 </a>

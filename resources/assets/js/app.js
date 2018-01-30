@@ -13,7 +13,7 @@ require('../share/js/social-share.min');
 require('./vendor/jquery.easing');
 // scrollUp.js
 require('./vendor/jquery.scrollUp');
-// select2
+// select2.js
 require('./vendor/select2');
 
 window.Vue = require('vue');

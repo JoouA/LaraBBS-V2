@@ -61,4 +61,3 @@ Route::get('permission-denied','PagesController@permissionDenied')->name('permis
 
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('founder');
-
