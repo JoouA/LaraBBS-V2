@@ -85,9 +85,9 @@ class Topic extends Model
      * 用户赞
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function vote()
+    public function votes()
     {
-        return $this->belongsToMany(User::class,'zans','topic_id','user_id')->withTimestamps();
+        return $this->belongsToMany(User::class,'zans','topic_id','user_id')->withPivot('created_at')->withTimestamps();
     }
 
 

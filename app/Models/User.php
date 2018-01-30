@@ -128,7 +128,7 @@ class User extends Authenticatable
      */
     public function votes()
     {
-        return $this->belongsToMany(Topic::class,'zans','user_id','topic_id')->withTimestamps();
+        return $this->belongsToMany(Topic::class,'zans','user_id','topic_id')->withPivot('created_at')->withTimestamps();
     }
 
     /**

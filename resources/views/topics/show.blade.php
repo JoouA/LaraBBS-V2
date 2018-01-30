@@ -4,6 +4,10 @@
 
 @section('description', $topic->excerpt)
 
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/simditor.css') }}">
+@stop
+
 @section('content')
 
 <div class="row">
@@ -88,10 +92,10 @@
     <script type="text/javascript"  src="{{ asset('js/uploader.js') }}"></script>
     <script type="text/javascript"  src="{{ asset('js/simditor.js') }}"></script>
     <!-- Simditor -->
-    <script>
+   {{-- <script>
         $(document).ready(function(){
             var editor = new Simditor({
-                textarea: $('#editor'),
+                textarea: $('#biaoqing'),
                 upload: {
                     url : '{{ route('topics.upload_image') }}',
                     params: { _token: '{{ csrf_token() }}'},
@@ -102,9 +106,9 @@
                 pasteImage: true,
             });
         });
-    </script>
+    </script>--}}
 
-    <script>
+    {{--<script>
         $('.biaoqing').mouseout(function (event) {
             var target = $(event.target);
 
@@ -116,6 +120,6 @@
 
             console.log(emojified);
         });
-    </script>
+    </script>--}}
 
 @endsection

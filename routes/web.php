@@ -33,6 +33,7 @@ Route::post('register', 'Auth\RegisterController@register');
 
 //users
 Route::resource('users','UsersController',['only' => ['show','update','edit']]);
+Route::get('users/{user}/votes','UsersController@votes')->name('users.votes');
 
 // topics
 Route::resource('topics','TopicsController',['except' => ['show']]);

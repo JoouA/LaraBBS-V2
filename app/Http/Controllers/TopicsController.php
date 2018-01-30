@@ -92,16 +92,9 @@ class TopicsController extends Controller
 
         $replies = $topic->replies()->with('user')->orderBy('created_at', 'desc')->paginate(5);
 
-        $vote_user_ids = Zan::where('topic_id',$topic->id)->orderBy('created_at','desc')->pluck('user_id');
+        $vote_users = $topic->votes()->orderBy('pivot_created_at', 'desc')->get();
 
-
-        $vote_users = collect();
-
-        foreach ($vote_user_ids as $vote_user_id){
-            $vote_users->push(User::find($vote_user_id));
-        }
-
-        return view('topics.show', compact('topic', 'replies','vote_users'));
+        return view('topics.show', compact('topic', 'replies', 'vote_users'));
     }
 
     /**
@@ -196,10 +189,10 @@ class TopicsController extends Controller
         $avatar = Auth::user()->avatar;
         $vote_id = \request()->vote_user;
         $topic_id = \request()->topic_id;
-        $user_link = route('users.show',Auth::id());
+        $user_link = route('users.show', Auth::id());
 
-        try{
-            $topic->vote()->toggle($vote_id);
+        try {
+            $topic->votes()->toggle($vote_id);
 
             return response()->json([
                 'vote_id' => $vote_id,
@@ -208,7 +201,7 @@ class TopicsController extends Controller
                 'user_avatar' => $avatar,
                 'user_link' => $user_link,
             ]);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             Log::error($vote_id . ' id的用户赞' . $topic_id . ' id的专题失败');
 
             return response()->json([
@@ -220,6 +213,10 @@ class TopicsController extends Controller
 
     }
 
+    /**
+     * 返回emojis
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function emojis()
     {
         return view('common.emoite');
