@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Topic;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 use App\Handlers\ImageUploadHandlers;
-use App\Zan;
 
 class UsersController extends Controller
 {
@@ -15,7 +14,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['show']);
+        $this->middleware('auth')->except(['show','votes']);
     }
 
     /**
@@ -85,5 +84,49 @@ class UsersController extends Controller
         $topics = $user->votes()->with('category')->withCount(['votes','replies'])->orderBy('pivot_created_at','desc')->paginate(5);
 
         return view('users.votes', compact('topics', 'user'));
+    }
+
+    public function avatar(User $user)
+    {
+        return view('users.avatar',compact('user'));
+    }
+
+    public function updateAvatar()
+    {
+
+    }
+
+    public function passwordForm(User $user)
+    {
+        return view('users.password',compact('user'));
+    }
+
+    public function updatePassword(Request $request,User $user)
+    {
+        $rules = [
+            'email' => 'required|unique:users,email,'.$user->id,
+            'password' => 'required|confirmed|min:6|max:16',
+        ];
+
+        $messages = [
+            'email.required' => '请输入邮箱',
+            'email.unique' => '邮箱已存在',
+            'password.required' => '密码不能为空',
+            'password.confirmed' => '两次输入的密码不一致',
+            'password.min' => '密码最少是6位',
+            'password.max' => '密码长度不能超过16位',
+        ];
+
+        $this->validate($request,$rules,$messages);
+
+        try{
+            $user->password = $request->input('password');
+            $user->save();
+            return redirect()->route('users.edit_password',$user->id)->with('success','密码修改成功!');
+        } catch (\Exception $e){
+            \Log::error('密码修改错误');
+            return back()->with('danger','密码修改失败');
+        }
+
     }
 }

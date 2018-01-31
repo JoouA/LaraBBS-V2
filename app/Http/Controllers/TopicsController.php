@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Link;
 use App\Models\Topic;
 use App\Models\User;
-use App\Zan;
 use Illuminate\Http\Request;
 use Log;
 use Auth;

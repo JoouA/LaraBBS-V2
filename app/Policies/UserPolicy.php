@@ -21,11 +21,19 @@ class UserPolicy extends Policy
 
     public function edit(User $currentUser,User $user)
     {
+        if ($currentUser->can('manage_users')){
+            return true;
+        }
+
         return $currentUser->id === $user->id;
     }
 
     public function update(User $currentUser,User $user)
     {
+        if ($currentUser->can('manage_users')){
+            return true;
+        }
+
         return $currentUser->id === $user->id;
     }
 }

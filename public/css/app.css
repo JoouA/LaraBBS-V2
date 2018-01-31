@@ -12704,7 +12704,7 @@ button.close {
 /* universal */
 
 body {
-  font-family: Hiragino Sans GB, "Hiragino Sans GB", Helvetica, "Microsoft YaHei", Arial,sans-serif;
+  font-family: Hiragino Sans GB, "Hiragino Sans GB", Helvetica, "Microsoft YaHei", Arial, sans-serif;
 }
 
 /* header */
@@ -12777,45 +12777,53 @@ body {
 /* User profile page */
 
 .users-show-page .user-info .thumbnail,
-.users-votes-page .user-info .thumbnail {
+.users-votes-page .user-info .thumbnail,
+users-edit-page .user-info .thumbnail {
   margin-bottom: 0px;
 }
 
 .users-show-page .nav-tabs,
-.users-votes-page .nav-tabs {
+.users-votes-page .nav-tabs,
+users-edit-page .nav-tabs {
   margin-bottom: 20px;
 }
 
 .users-show-page .nav-tabs > li.active > a,
-.users-votes-page .nav-tabs > li.active > a {
+.users-votes-page .nav-tabs > li.active > a,
+users-edit-page .nav-tabs > li.active > a {
   background-color: #fff;
 }
 
 .users-show-page .list-group .list-group-item,
-.users-votes-page .list-group .list-group-item {
+.users-votes-page .list-group .list-group-item,
+users-edit-page .list-group .list-group-item {
   border: none;
   margin-bottom: 0px;
   border-bottom: 1px solid #efefef;
 }
 
 .users-show-page .list-group .list-group-item .meta,
-.users-votes-page .list-group .list-group-item .meta {
+.users-votes-page .list-group .list-group-item .meta,
+users-edit-page .list-group .list-group-item .meta {
   color: #b3b3b3;
 }
 
 .users-show-page .pagination,
-.users-votes-page .pagination {
+.users-votes-page .pagination,
+users-edit-page .pagination {
   margin: 12px 0;
 }
 
 .users-show-page .meta,
-.users-votes-page .meta {
+.users-votes-page .meta,
+users-edit-page .meta {
   font-size: .9em;
   color: #b3b3b3;
 }
 
 .users-show-page .reply-content,
-.users-votes-page .reply-content {
+.users-votes-page .reply-content,
+users-edit-page .reply-content {
   margin: 6px 0;
 }
 
@@ -13470,7 +13478,13 @@ body {
   background-color: #fff;
   padding: 10px;
   margin: 0 0 20px 0;
-  -webkit-box-shadow: 0 .2em 0 0 #ddd,0 0 0 1px #ddd;
-  box-shadow: 0 .2em 0 0 #ddd,0 0 0 1px #ddd;
+  -webkit-box-shadow: 0 .2em 0 0 #ddd, 0 0 0 1px #ddd;
+  box-shadow: 0 .2em 0 0 #ddd, 0 0 0 1px #ddd;
+}
+
+.avatar-preview-img {
+  padding: 3px;
+  border: 1px solid #c8dcdb;
+  border-radius: 6px;
 }
 

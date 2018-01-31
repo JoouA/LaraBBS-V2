@@ -13,6 +13,10 @@ class ReplyPolicy extends  Policy
     // 评论的作者或者是topic的作者都可以删除reply
     public function destroy(User $user,Reply $reply)
     {
+        if ($user->can('manage_contents')){
+            return true;
+        }
+
         return $user->isAuthorOf($reply) || $user->isAuthorOf($reply->topic);
     }
 }

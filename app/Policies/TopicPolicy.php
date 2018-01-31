@@ -26,6 +26,9 @@ class TopicPolicy extends Policy
      */
     public function update(User $user,Topic $topic)
     {
+        if ($user->can('manage_contents')){
+            return true;
+        }
         return $user->isAuthorOf($topic);
     }
 
@@ -36,6 +39,9 @@ class TopicPolicy extends Policy
      */
     public function edit(User $user,Topic $topic)
     {
+        if ($user->can('manage_contents')){
+            return true;
+        }
         return $user->isAuthorOf($topic);
     }
 
@@ -46,6 +52,9 @@ class TopicPolicy extends Policy
      */
     public function destroy(User $user,Topic $topic)
     {
+        if ($user->can('manage_contents')){
+            return true;
+        }
         return $user->isAuthorOf($topic);
     }
 }

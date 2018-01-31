@@ -22,7 +22,7 @@
                 </div>
                 <hr>
                 @can('update',$user)
-                    <a class="btn btn-primary btn-block" href="{{ route('users.edit',Auth::id()) }}" id="user-edit-button">
+                    <a class="btn btn-primary btn-block" href="{{ route('users.edit',$user->id) }}" id="user-edit-button">
                         <i class="fa fa-edit"></i> 编辑个人资料
                     </a>
                 @endcan
