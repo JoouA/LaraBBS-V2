@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/slim.min.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="col-md-3 main-col">
@@ -11,22 +15,32 @@
         </div>
         @include('common.error')
         <div class="panel-body padding-bg">
-            <form method="POST" action="https://laravel-china.org/users/19867/update_avatar" enctype="multipart/form-data" accept-charset="UTF-8">
-                <input name="_method" type="hidden" value="PUT">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                <div id="image-preview-div">
-                    <label for="exampleInputFile">请选择图片：</label>
-                    <br>
-                    <img id="preview-img" class="avatar-preview-img" src="{{ $user->avatar }}">
+            <label for="exampleInputFile">请选择图片：</label>
+            <br>
+            <div style="width: 400px;height: 400px">
+                <div class="slim"
+                     data-service="{{ route('users.update_avatar', ['_token' => csrf_token(), 'user_id' => Auth::id()]) }}"
+                     data-label="点击选择图片"
+                     data-download="true"
+                     data-button-edit-title="编辑"
+                     data-button-download-title="下载"
+                     data-button-upload-title="上传"
+                     data-button-remove-title="删除"
+                     data-button-cancel-title="取消"
+                     data-button-confirm-title="确认"
+                     data-button-cancel-label="取消"
+                     data-button-confirm-label="确认"
+                     data-size="960,960"
+                     data-ratio="1:1">
+                    <img src="{{ $user->avatar }}" alt=""/>
+                    <input type="file" name="slim[]" />
                 </div>
-                <div class="form-group">
-                    <input type="file" name="avatar" id="file" required="">
-                </div>
-                <br>
-                <button class="btn btn-lg btn-primary" id="upload-button" type="submit">上传头像</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('assets/js/slim.kickstart.min.js') }}"></script>
 @endsection

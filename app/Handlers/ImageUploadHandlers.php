@@ -35,6 +35,12 @@ class ImageUploadHandlers
 
     }
 
+
+    public function ave_base64_image($file,$folder,$file_prefix,$max_width = null,$max_height = null)
+    {
+
+    }
+
     public function reduceSize($file_path,$max_width,$max_height)
     {
         // 先实例化，参数是文件的磁盘物理路径
