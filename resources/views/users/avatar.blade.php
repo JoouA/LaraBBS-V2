@@ -30,7 +30,8 @@
                      data-button-confirm-title="确认"
                      data-button-cancel-label="取消"
                      data-button-confirm-label="确认"
-                     data-size="960,960"
+                     data-size="480,480"
+                     data-max-file-size="2"
                      data-ratio="1:1">
                     <img src="{{ $user->avatar }}" alt=""/>
                     <input type="file" name="slim[]" />

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Handlers\ImageUploadHandlers;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -14,10 +15,11 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['show','votes']);
+        $this->middleware('auth')->except(['show', 'votes']);
     }
 
     /**
+     * 显示个人的信息界面
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -32,6 +34,7 @@ class UsersController extends Controller
     }
 
     /**
+     * 编辑个人信息
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -43,7 +46,7 @@ class UsersController extends Controller
     }
 
 
-    /**
+    /** 更新个人信息
      * @param UserRequest $request
      * @param User $user
      * @param ImageUploadHandlers $uploader
@@ -81,40 +84,49 @@ class UsersController extends Controller
     public function votes(User $user)
     {
         // 可以使用pivot来进行数据的排序
-        $topics = $user->votes()->with('category')->withCount(['votes','replies'])->orderBy('pivot_created_at','desc')->paginate(5);
+        $topics = $user->votes()->with('category')->withCount(['votes', 'replies'])->orderBy('pivot_created_at', 'desc')->paginate(5);
 
         return view('users.votes', compact('topics', 'user'));
     }
 
+    /** 设置个人头像
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function avatar(User $user)
     {
-        return view('users.avatar',compact('user'));
+        return view('users.avatar', compact('user'));
     }
 
+
+    /** 更新个人头像
+     * @param Request $request
+     * @return string
+     */
     public function updateAvatar(Request $request)
     {
-        $viewid = 10000;
-        if($request->has('viewid'))
-        {
-            $viewid = $request->viewid;
+        $user_id = '';
+        if ($request->has('user_id')) {
+            $user_id = $request->user_id;
         }
 
-        if($request->has('slim') && $request->slim[0])
-        {
+
+        if ($request->has('slim') && $request->slim[0]) {
 
             $output = $request->slim[0];
+
+            //对output的内容进行decode， out_put的内容是json格式的
             $output = json_decode($output, TRUE);
 
-            if(isset($output) && isset($output['output']) && isset($output['output']['image']))
+
+            if (isset($output) && isset($output['output']) && isset($output['output']['image']))
                 $image = $output['output']['image'];
 
-            if(isset($image))
-            {
-
-                $data = app(ImageUploadHandlers::class)->save_base64_image();
-                if(is_array($data) && $data['code'] && $data['code'] == 0)
-                {
-                    // 写入数据库
+            if (isset($image)) {
+                // $image 是经过base64处理过的图片内容
+                $data = app(ImageUploadHandlers::class)->save_base64_image($image, 'avatars', $user_id, 362);
+                if (is_array($data) && $data['status'] == 0) {
+                    Auth::user()->update(['avatar' => $data['path']]);
                 }
                 return $data;
             }
@@ -123,15 +135,25 @@ class UsersController extends Controller
         return '非使用slim cropper裁剪';
     }
 
+    /** 显示重置密码的界面
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function passwordForm(User $user)
     {
-        return view('users.password',compact('user'));
+        return view('users.password', compact('user'));
     }
 
-    public function updatePassword(Request $request,User $user)
+    /**
+     * 更新密码
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(Request $request, User $user)
     {
         $rules = [
-            'email' => 'required|unique:users,email,'.$user->id,
+            'email' => 'required|unique:users,email,' . $user->id,
             'password' => 'required|confirmed|min:6|max:16',
         ];
 
@@ -144,15 +166,15 @@ class UsersController extends Controller
             'password.max' => '密码长度不能超过16位',
         ];
 
-        $this->validate($request,$rules,$messages);
+        $this->validate($request, $rules, $messages);
 
-        try{
+        try {
             $user->password = $request->input('password');
             $user->save();
-            return redirect()->route('users.edit_password',$user->id)->with('success','密码修改成功!');
-        } catch (\Exception $e){
+            return redirect()->route('users.edit_password', $user->id)->with('success', '密码修改成功!');
+        } catch (\Exception $e) {
             \Log::error('密码修改错误');
-            return back()->with('danger','密码修改失败');
+            return back()->with('danger', '密码修改失败');
         }
 
     }

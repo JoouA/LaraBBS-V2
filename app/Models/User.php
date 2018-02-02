@@ -107,6 +107,15 @@ class User extends Authenticatable
         $this->attributes['avatar'] = $path;
     }
 
+
+    public function getAvatarAttribute($avatar)
+    {
+        // 判断数据库里面有值，并且文件照片还在
+        //http://larabbs.work/uploads/images/avatars/201802/03/4_5a342131c562d46751f75a57b3de63d5.jpg
+        $file = public_path() .   str_replace(config('app.url'),'',$avatar);
+        return file_exists($file) ? $avatar : 'https://fsdhubcdn.phphub.org/uploads/images/201710/14/1/s5ehp11z6s.png?imageView2/1/w/200/h/200';
+    }
+
     /**
      * 设置后台修改密码的时候密码不进行加密的问题
      * @param $password
