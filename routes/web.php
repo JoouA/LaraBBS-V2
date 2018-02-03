@@ -32,11 +32,10 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 
 //users
-Route::post('users/update_avatar','UsersController@updateAvatar')->name('users.update_avatar');
-
 Route::resource('users','UsersController',['only' => ['show','update','edit']]);
 Route::get('users/{user}/votes','UsersController@votes')->name('users.votes');
 Route::get('users/{user}/edit_avatar','UsersController@avatar')->name('users.edit_avatar');
+Route::post('users/update_avatar','UsersController@updateAvatar')->name('users.update_avatar');
 Route::get('users/{user}/edit_password','UsersController@passwordForm')->name('users.edit_password');
 Route::put('users/{user}/update_password','UsersController@updatePassword')->name('users.update_password');
 

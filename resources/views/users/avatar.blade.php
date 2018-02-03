@@ -19,7 +19,7 @@
             <br>
             <div style="width: 400px;height: 400px">
                 <div class="slim"
-                     data-service="{{ route('users.update_avatar', ['_token' => csrf_token(), 'user_id' => Auth::id()]) }}"
+                     data-service="{{ route('users.update_avatar', ['_token' => csrf_token(), 'user_id' => $user->id]) }}"
                      data-label="点击选择图片"
                      data-download="true"
                      data-button-edit-title="编辑"

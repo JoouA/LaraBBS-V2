@@ -2,6 +2,9 @@
 
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/simditor.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/simditor-html.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/simditor-markdown.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/Simditor-PrettyEmoji/styles/simditor-prettyemoji.css') }}">
 @stop
 
 @section('content')
@@ -53,12 +56,27 @@
     <script type="text/javascript"  src="{{ asset('js/hotkeys.js') }}"></script>
     <script type="text/javascript"  src="{{ asset('js/uploader.js') }}"></script>
     <script type="text/javascript"  src="{{ asset('js/simditor.js') }}"></script>
+    <script type="text/javascript"  src="{{ asset('assets/js/beautify-html.js') }}"></script>
+    <script type="text/javascript"  src="{{ asset('assets/js/simditor-html.js') }}"></script>
+    <script type="text/javascript"  src="{{ asset('vendor/Simditor-PrettyEmoji/lib/simditor-prettyemoji.js') }}"></script>
+    <script type="text/javascript"  src="{{ asset('assets/js/simditor-autosave.js') }}"></script>
+
+    <!-- simditor-markdown -->
+    <script type="text/javascript" src="{{ asset('assets/js/marked.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/to-markdown.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/simditor-markdown.js') }}"></script>
 
     <!-- Simditor -->
     <script>
         $(document).ready(function(){
             var editor = new Simditor({
                 textarea: $('#editor'),
+                toolbar: ['bold', 'italic', 'color' , 'fontScale' ,'underline', 'strikethrough', '|', 'ol', 'ul', 'blockquote', 'code', '|', 'link', 'image', 'emoji','|', 'html' ,'markdown' ,'indent', 'outdent'],
+                emoji: {
+                    autoClose: true,
+                    imagePath: '/vendor/Simditor-PrettyEmoji/images/emoji/',
+                    categories: ["face","fashion","animal","food","travel","time","work","font","tool","other"]
+                },
                 upload: {
                     url : '{{ route('topics.upload_image') }}',
                     params: { _token: '{{ csrf_token() }}'},

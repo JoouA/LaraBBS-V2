@@ -11,6 +11,7 @@ use Auth;
 class UsersController extends Controller
 {
     /**
+     * 构造函数
      * UsersController constructor.
      */
     public function __construct()
@@ -126,7 +127,11 @@ class UsersController extends Controller
                 // $image 是经过base64处理过的图片内容
                 $data = app(ImageUploadHandlers::class)->save_base64_image($image, 'avatars', $user_id, 362);
                 if (is_array($data) && $data['status'] == 0) {
-                    Auth::user()->update(['avatar' => $data['path']]);
+
+                    $user = User::find($user_id);
+                    $user->avatar =  $data['path'];
+                    $user->save();
+//                    Auth::user()->update(['avatar' => $data['path']]);
                 }
                 return $data;
             }

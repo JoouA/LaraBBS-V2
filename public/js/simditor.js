@@ -2711,7 +2711,8 @@ Simditor.i18n = {
     'fontScaleLarge': '大号字体',
     'fontScaleNormal': '正常大小',
     'fontScaleSmall': '小号字体',
-    'fontScaleXSmall': '超小字体'
+    'fontScaleXSmall': '超小字体',
+    'markdown': 'markdown语法',
   },
   'en-US': {
     'blockquote': 'Block Quote',
@@ -2764,7 +2765,8 @@ Simditor.i18n = {
     'fontScaleLarge': 'Large Size',
     'fontScaleNormal': 'Normal Size',
     'fontScaleSmall': 'Small Size',
-    'fontScaleXSmall': 'X Small Size'
+    'fontScaleXSmall': 'X Small Size',
+    'markdown': 'markdown',
   }
 };
 

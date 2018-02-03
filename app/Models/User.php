@@ -107,7 +107,11 @@ class User extends Authenticatable
         $this->attributes['avatar'] = $path;
     }
 
-
+    /**
+     * avatar的get修改器
+     * @param $avatar
+     * @return string
+     */
     public function getAvatarAttribute($avatar)
     {
         // 判断数据库里面有值，并且文件照片还在
