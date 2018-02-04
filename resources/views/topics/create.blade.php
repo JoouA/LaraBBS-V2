@@ -65,6 +65,8 @@
     <script type="text/javascript" src="{{ asset('assets/js/to-markdown.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/simditor-markdown.js') }}"></script>
 
+    <!-- simditor dropzone -->
+    <script type="text/javascript" src="{{ asset('assets/js/simditor-dropzone.js') }}"></script>
 
 
     <!-- Simditor -->

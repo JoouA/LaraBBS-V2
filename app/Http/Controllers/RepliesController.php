@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReplyRequest;
 use App\Models\Reply;
+use App\Models\Topic;
+use Illuminate\Http\Request;
+use DB;
 
 class RepliesController extends Controller
 {
@@ -40,5 +43,26 @@ class RepliesController extends Controller
         $reply->delete();
 
         return redirect()->to($reply->topic->link())->with('success','删除评论成功!');
+    }
+
+    /**
+     * 获得评论topic的用户的基本信息
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function replyUsers(Request $request)
+    {
+        $topic_id = $request->topic;
+
+        $replies = Reply::select(DB::raw('user_id,count(*) as reply_count'))
+                                 ->with(['user' => function($query){
+                                     $query->select('id','name');
+                                 } ])
+                                 ->where('topic_id',$topic_id)->groupBy('user_id')->get();
+
+
+        return response()->json([
+            'replies' => $replies,
+        ]);
     }
 }

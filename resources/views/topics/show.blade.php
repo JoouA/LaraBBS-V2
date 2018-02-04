@@ -6,6 +6,9 @@
 
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/simditor.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/simditor-mention.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/simditor-markdown.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/Simditor-PrettyEmoji/styles/simditor-prettyemoji.css') }}">
 @stop
 
 @section('content')
@@ -77,8 +80,8 @@
         <!--用户回复列表-->
         <div class="panel panel-default topic-reply">
             <div class="panel-body">
-                @includeWhen(Auth::check(),'topics._reply_box',['topic' => $topic])
                 @include('topics._reply_list',['replies' => $replies])
+                @includeWhen(Auth::check(),'topics._reply_box',['topic' => $topic])
             </div>
         </div>
     </div>
@@ -86,27 +89,24 @@
 @stop
 
 @section('scripts')
-    <script src="{{ asset('js/emoji-images.js') }}"></script>
-    <script type="text/javascript"  src="{{ asset('js/module.js') }}"></script>
-    <script type="text/javascript"  src="{{ asset('js/hotkeys.js') }}"></script>
-    <script type="text/javascript"  src="{{ asset('js/uploader.js') }}"></script>
-    <script type="text/javascript"  src="{{ asset('js/simditor.js') }}"></script>
-    <!-- Simditor -->
-   {{-- <script>
-        $(document).ready(function(){
-            var editor = new Simditor({
-                textarea: $('#biaoqing'),
-                upload: {
-                    url : '{{ route('topics.upload_image') }}',
-                    params: { _token: '{{ csrf_token() }}'},
-                    fileKey: 'upload_file',
-                    connectionCount: 3,
-                    leaveConfirm: '文件上传中，关闭此页面将取消上传。',
-                },
-                pasteImage: true,
-            });
-        });
-    </script>--}}
+    <!-- simditor js -->
+    <script type="text/javascript" src="{{ asset('js/module.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/hotkeys.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('vendor/Simditor-PrettyEmoji/lib/simditor-prettyemoji.js') }}"></script>
+
+    <!-- simditor-markdown -->
+    <script type="text/javascript" src="{{ asset('assets/js/marked.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/to-markdown.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/simditor-markdown.js') }}"></script>
+
+    <!-- simditor dropzone -->
+    <script type="text/javascript" src="{{ asset('assets/js/simditor-dropzone.js') }}"></script>
+
+    <!-- simditor mention @ -->
+    <script type="text/javascript" src="{{ asset('assets/js/simditor-mention.js') }}"></script>
 
     {{--<script>
         $('.biaoqing').mouseout(function (event) {
@@ -121,5 +121,59 @@
             console.log(emojified);
         });
     </script>--}}
+    <script type="text/javascript">
+        var reply_datas = [];
 
+        $.ajax({
+            url : '{{ route('replies.users',$topic->id) }}' ,
+            method: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                $.each(data.replies,function (index,obj) {
+
+                    reply_data = { id:obj.user.id,name:obj.user.name };
+
+                    reply_datas.push(reply_data);
+
+                });
+            }
+        });
+
+        $(function() {
+            var editor = new Simditor({
+                textarea: $('#reply_content'),
+                pasteImage: true,
+                toolbar: ['code', 'color', 'emoji' , 'markdown', '|', 'link', 'image', 'hr'],
+                upload: {
+                    url: '{{ route('topics.upload_image') }}',
+                    param: { _token : '{{ csrf_token() }}'  } ,
+                    fileKey: 'upload_file',
+                    connectionCount: 3,
+                    leaveConfirm: '文件上传中，关闭此页面将取消上传。',
+                },
+                emoji: {
+                    autoClose: true,
+                    imagePath: '/vendor/Simditor-PrettyEmoji/images/emoji/',
+                    categories: ["face","fashion","animal","food","travel","time","work","font","tool","other"]
+                },
+                mention:{
+                    items: reply_datas,
+                    itemRenderer:function($itemEl,data){
+                        $span = $('span',$itemEl)
+                        $('<img>').insertBefore($span)
+                        return $itemEl
+                    },
+                    linkRenderer:function($linkEl,data){
+                        $linkEl.attr('href', '{{ config('app.url') }}' + '/users/'  +data.id);
+                    }
+                },
+            });
+
+            $(editor).on("mention",function(e,el,data){
+                color = ( data.id%2==0? 'blue' : 'red' )
+                $(el).css('color',color);
+            });
+
+        });
+    </script>
 @endsection

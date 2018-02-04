@@ -15,7 +15,8 @@
 
                 @if(count($notifications) >0 )
                     @foreach($notifications as $notification)
-                        @include('notifications.types._'.snake_case(class_basename($notification->type)))
+                        {{--@include('notifications.types._'.snake_case(class_basename($notification->type)))--}}
+                        @include('notifications.types._'.'reply_notification')
                     @endforeach
                     {!! $notifications->render() !!}
                 @else

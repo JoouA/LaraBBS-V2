@@ -3,10 +3,13 @@
 namespace App\Observers;
 
 use App\Models\Reply;
+use App\Notifications\ReplyMentionNotification;
 use App\Notifications\ReplyNotification;
+use App\Models\Traits\ReplyMention;
 
 class ReplyObserver
 {
+    use ReplyMention;
 
     public function creating(Reply $reply)
     {
@@ -25,6 +28,15 @@ class ReplyObserver
 
         if ( ! $reply->user->isAuthorOf($topic) ){
              $topic->user->notify(new ReplyNotification($reply));
+        }
+
+        // 作者@某一个人，要对哪一个人进行通知,获取到@的人的用户信息
+        $mention_users = $this->getMentionUser($reply->content);
+
+        if (count($mention_users) > 0){
+            foreach ($mention_users as $mention_user){
+                $mention_user->notify(new  ReplyMentionNotification($reply));
+            }
         }
 
     }

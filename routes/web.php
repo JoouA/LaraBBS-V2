@@ -58,6 +58,9 @@ Route::resource('categories','CategoriesController',['only' => ['show']]);
 //replies
 Route::resource('replies','RepliesController',['only' => ['store','destroy'] ]);
 
+Route::get('replies/{topic}','RepliesController@replyUsers')->name('replies.users');
+
+
 // notification
 Route::group(['middleware' => ['auth','web']],function (){
     Route::resource('notifications','NotificationsController',['only' => ['index']]);
