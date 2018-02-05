@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Topic extends Model
 {
@@ -11,6 +12,16 @@ class Topic extends Model
     protected $fillable = ['title', 'body', 'category_id','excerpt','slug'];
 
     protected $guarded = [];
+
+    use SearchableTrait;
+
+    protected $searchable = [
+        'columns' => [
+            'topics.title' => 10,
+            'topics.body' => 5,
+        ],
+    ];
+
 
     public function scopeWithOrder($query,$order)
     {
@@ -90,5 +101,16 @@ class Topic extends Model
         return $this->belongsToMany(User::class,'zans','topic_id','user_id')->withPivot('created_at')->withTimestamps();
     }
 
+
+    /**
+     * 某个用户的Topic
+     * @param $query
+     * @param $user_id
+     * @return mixed
+     */
+    public function scopeByWhom($query,$user_id)
+    {
+        return $query->where('user_id',$user_id);
+    }
 
 }

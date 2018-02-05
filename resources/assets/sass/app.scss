@@ -86,7 +86,7 @@ body {
 }
 
 /* User profile page */
-.users-show-page, .users-votes-page{
+.users-show-page, .users-votes-page {
   .user-info {
     .thumbnail {
       margin-bottom: 0px;
@@ -328,4 +328,24 @@ body {
   border: 1px solid #c8dcdb;
   border-radius: 6px;
 }
+
+.search-input {
+  background-image: url("../../../public/assets/images/icon-search.png");
+  background-repeat: no-repeat;
+  background-position: 10px;
+  padding-left: 25px;
+  border: 1px solid #c6c6c6;
+  box-shadow: none;
+  transition: all 0.25s ease-in 0s;
+}
+
+.navbar-form .mac-style {
+  width: 200px;
+}
+
+.navbar-form .mac-style:focus {
+  width: 220px;
+}
+
+
 

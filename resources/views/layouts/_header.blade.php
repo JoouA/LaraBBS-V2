@@ -27,6 +27,24 @@
 
             {{-- Right Side of Navbar--}}
             <ul class="nav navbar-nav navbar-right">
+                <!-- 在用户内部搜索 -->
+                <!-- $query 参数是搜索的参数，从后台传过来的 -->
+                @if (Request::is('users*')&&isset($user) || (Request::is('search*') && $user->id > 0))
+                    <form method="GET" action="{{ route('search') }}" accept-charset="UTF-8" class="navbar-form navbar-left hidden-sm hidden-md">
+                        <div class="form-group">
+                            <input class="form-control search-input mac-style" placeholder="搜索范围：{{ $user->name }}" name="q" type="text" value="{!! (Request::is('search*') && isset($query)) ? $query : ''  !!}">
+                            <input class="form-control search-input mac-style"  name="user_id" type="hidden" value="{{ $user->id }}">
+                        </div>
+                    </form>
+                @else
+                    <!-- 全站搜索 -->
+                    <form method="GET" action="{{ route('search') }}" accept-charset="UTF-8" class="navbar-form navbar-left hidden-sm hidden-md">
+                        <div class="form-group">
+                            <input class="form-control search-input mac-style" placeholder="搜索" name="q" type="text" value="{!! (Request::is('search*') && isset($query)) ? $query : ''  !!} ">
+                        </div>
+                    </form>
+                @endif
+
                 @guest
                     {{--Authenticaiton Links--}}
                     <li><a href="{{ route('login') }}">登录</a></li>

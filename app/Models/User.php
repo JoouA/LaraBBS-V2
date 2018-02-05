@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\LastActivedAtHelper;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\ActiveUserHelper;
 
@@ -18,6 +19,17 @@ class User extends Authenticatable
     use Notifiable {
         notify as protected laravelNotify;
     }
+
+    use SearchableTrait;
+
+
+    protected $searchable = [
+        'columns' => [
+            'users.name' => 10,
+            'users.introduction' => 10,
+        ]
+    ];
+
 
     /**
      * The attributes that are mass assignable.

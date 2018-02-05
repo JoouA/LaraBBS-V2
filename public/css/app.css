@@ -12777,53 +12777,45 @@ body {
 /* User profile page */
 
 .users-show-page .user-info .thumbnail,
-.users-votes-page .user-info .thumbnail,
-users-edit-page .user-info .thumbnail {
+.users-votes-page .user-info .thumbnail {
   margin-bottom: 0px;
 }
 
 .users-show-page .nav-tabs,
-.users-votes-page .nav-tabs,
-users-edit-page .nav-tabs {
+.users-votes-page .nav-tabs {
   margin-bottom: 20px;
 }
 
 .users-show-page .nav-tabs > li.active > a,
-.users-votes-page .nav-tabs > li.active > a,
-users-edit-page .nav-tabs > li.active > a {
+.users-votes-page .nav-tabs > li.active > a {
   background-color: #fff;
 }
 
 .users-show-page .list-group .list-group-item,
-.users-votes-page .list-group .list-group-item,
-users-edit-page .list-group .list-group-item {
+.users-votes-page .list-group .list-group-item {
   border: none;
   margin-bottom: 0px;
   border-bottom: 1px solid #efefef;
 }
 
 .users-show-page .list-group .list-group-item .meta,
-.users-votes-page .list-group .list-group-item .meta,
-users-edit-page .list-group .list-group-item .meta {
+.users-votes-page .list-group .list-group-item .meta {
   color: #b3b3b3;
 }
 
 .users-show-page .pagination,
-.users-votes-page .pagination,
-users-edit-page .pagination {
+.users-votes-page .pagination {
   margin: 12px 0;
 }
 
 .users-show-page .meta,
-.users-votes-page .meta,
-users-edit-page .meta {
+.users-votes-page .meta {
   font-size: .9em;
   color: #b3b3b3;
 }
 
 .users-show-page .reply-content,
-.users-votes-page .reply-content,
-users-edit-page .reply-content {
+.users-votes-page .reply-content {
   margin: 6px 0;
 }
 
@@ -13486,5 +13478,25 @@ users-edit-page .reply-content {
   padding: 3px;
   border: 1px solid #c8dcdb;
   border-radius: 6px;
+}
+
+.search-input {
+  background-image: url(/images/icon-search.png?00d30d6bb662c638b4b34a3899c35806);
+  background-repeat: no-repeat;
+  background-position: 10px;
+  padding-left: 25px;
+  border: 1px solid #c6c6c6;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transition: all 0.25s ease-in 0s;
+  transition: all 0.25s ease-in 0s;
+}
+
+.navbar-form .mac-style {
+  width: 200px;
+}
+
+.navbar-form .mac-style:focus {
+  width: 220px;
 }
 
