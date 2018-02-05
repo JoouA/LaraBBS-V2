@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/','TopicsController@index')->name('root');
+/*page route*/
+Route::get('permission-denied','PagesController@permissionDenied')->name('permission-denied');
+Route::get('search','PagesController@Search')->name('search');
+
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -41,6 +44,7 @@ Route::put('users/{user}/update_password','UsersController@updatePassword')->nam
 
 
 // topics
+Route::get('/','TopicsController@index')->name('root');
 Route::resource('topics','TopicsController',['except' => ['show']]);
 //common
 Route::get('emojis','TopicsController@emojis')->name('topics.emojis');
@@ -49,9 +53,9 @@ Route::post('topics/{topic}/vote','TopicsController@vote')->name('topics.vote');
 
 Route::get('topics/{topic}/{slug?}','TopicsController@show')->name('topics.show');
 
-
 Route::post('upload_image','TopicsController@uploadImage')->name('topics.upload_image');
 
+/*Category Route*/
 Route::resource('categories','CategoriesController',['only' => ['show']]);
 
 
@@ -65,8 +69,5 @@ Route::get('replies/{topic}','RepliesController@replyUsers')->name('replies.user
 Route::group(['middleware' => ['auth','web']],function (){
     Route::resource('notifications','NotificationsController',['only' => ['index']]);
 });
-
-Route::get('permission-denied','PagesController@permissionDenied')->name('permission-denied');
-
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('founder');

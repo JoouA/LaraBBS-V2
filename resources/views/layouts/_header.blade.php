@@ -23,9 +23,6 @@
                 @foreach($categories as $category)
                 <li class="{{ active_class(if_route('categories.show')&&if_route_param('category',$category->id)) }}"><a href="{{ route('categories.show',$category->id) }}">{{ $category->name }}</a></li>
                 @endforeach
-               {{-- <li class="{{ active_class(if_route('categories.show')&&if_route_param('category',2)) }}"><a href="{{ route('categories.show',2) }}">教程</a></li>
-                <li class="{{ active_class(if_route('categories.show')&&if_route_param('category',3)) }}"><a href="{{ route('categories.show',3) }}">问答</a></li>
-                <li class="{{ active_class(if_route('categories.show')&&if_route_param('category',4)) }}"><a href="{{ route('categories.show',4) }}">公告</a></li>--}}
             </ul>
 
             {{-- Right Side of Navbar--}}
@@ -64,6 +61,14 @@
                                     </a>
                                 </li>
                             @endcan
+                            @if(Auth::user()->hasRole('Founder'))
+                                <li>
+                                    <a href="{{ url(config('redis-manager.base_path')) }}">
+                                        <span class="glyphicon glyphicon-folder-open"></span>
+                                        Redis管理
+                                    </a>
+                                </li>
+                            @endif
                             <li>
                                 <a href="{{ route('users.show',Auth::id()) }}">
                                     <span class="glyphicon glyphicon-user"></span>
