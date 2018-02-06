@@ -347,7 +347,6 @@ body {
   width: 220px;
 }
 
-
 .search-results {
   padding: 20px;
   line-height: 25px;
@@ -464,5 +463,64 @@ body {
   height: 26px;
 }
 
+// use basic info
+.users-show-page .follow-info {
+  text-align: center;
+  margin-top: 15px;
+}
+
+
+.users-show-page  .media-heading {
+    margin: 10px 0px;
+}
+
+.users-show-page .follow-info a {
+    display: block;
+    text-decoration: none;
+}
+
+.users-show-page .follow-info a.counter {
+    font-size: 32px;
+    color: #00b5ad;
+}
+
+.users-show-page .follow-info a.counter:hover {
+    color: #00c4bc;
+}
+
+.users-show-page  .follow-info a.text {
+    color: #999;
+}
+
+
+// users follower
+.users-followers-page, .users-votes-page{
+  .follow-info {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .media-heading {
+    margin: 10px 0px;
+  }
+
+  .follow-info a {
+    display: block;
+    text-decoration: none;
+  }
+
+  .follow-info a.counter {
+    font-size: 32px;
+    color: #00b5ad;
+  }
+
+  .follow-info a.counter:hover {
+    color: #00c4bc;
+  }
+
+  .follow-info a.text {
+    color: #999;
+  }
+}
 
 

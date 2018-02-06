@@ -55,6 +55,7 @@ $('#up-vote').click(function (event) {
     });
 });
 
+// 用户退出登录
 $('#login-out').on('click', function(e) {
     var langText = $(this).data('lang-loginout');
 
@@ -78,4 +79,41 @@ $('#login-out').on('click', function(e) {
     });
 
     return false;
+});
+
+// 用户关注
+$('#user-follow-button').on('click',function (event) {
+    var target = $(event.target);
+
+    var url = target.attr('data-url');
+
+    var isFollow = target.attr('data-follow');
+
+    $.ajax({
+        url: url,
+        method: 'POST',
+        success: function (data) {
+            if (data.status === 1){
+
+                // 如果已经关注
+                if (isFollow == 'T'){
+                    target.html('<i class='+'"fa fa-minus"></i>'+' 关注Ta');
+                    $('#user-follow-button').removeClass('btn-default').addClass('btn-danger');
+                    target.attr('data-follow','F');
+                }else{
+                    target.html('<i class='+'"fa fa-minus"></i>'+' 已关注');
+                    $('#user-follow-button').removeClass('btn-danger').addClass('btn-default');
+                    target.attr('data-follow','T');
+                }
+
+                console.log(data.msg);
+            }
+
+            if (data.status === -1){
+                console.log(data.msg);
+            }
+
+        }
+    });
+
 });

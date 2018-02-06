@@ -6,6 +6,8 @@ use App\Models\Traits\LastActivedAtHelper;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Overtrue\LaravelFollow\Traits\CanBeFollowed;
+use Overtrue\LaravelFollow\Traits\CanFollow;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\ActiveUserHelper;
 
@@ -22,6 +24,7 @@ class User extends Authenticatable
 
     use SearchableTrait;
 
+    use CanFollow,CanBeFollowed;
 
     protected $searchable = [
         'columns' => [

@@ -14,14 +14,46 @@
                     <h4><strong>个人简介</strong></h4>
                     <p>{{ $user->introduction }}</p>
                     <hr>
+                    <div class="follow-info row">
+                        <div class="col-xs-4">
+                            <a class="counter" href="{{ route('users.followers',$user->id) }}">{{ $user->followers->count() }}</a>
+                            <a class="text" href="{{ route('users.followers',$user->id) }}">关注者</a>
+                        </div>
+                        <div class="col-xs-4">
+                            <a class="counter" href="{{ route('users.replies',$user->id) }}">{{ $user->replies->count() }}</a>
+                            <a class="text" href="{{ route('users.replies',$user->id) }}">讨论</a>
+                        </div>
+                        <div class="col-xs-4">
+                            <a class="counter" href="{{ route('users.topics',$user->id) }}">{{ $user->topics->count() }}</a>
+                            <a class="text" href="{{ route('users.topics',$user->id) }}">文章</a>
+                        </div>
+                    </div>
+                    <hr>
                     <h4><strong>注册于</strong></h4>
                     <p>{{ $user->created_at->diffForHumans() }}</p>
                     <hr>
                     <h4><strong>活跃于</strong></h4>
                     <p title="{{ $user->last_actived_at }}">{{ $user->last_actived_at->diffForHumans() }}</p>
+                    @if(Auth::check())
+                        @if($user->id !== Auth::id())
+                        <hr>
+                        <a  class="btn btn-block {{ Auth::user()->isFollowing($user)? 'btn-default' : 'btn-danger' }} "  href="javascript:void(0);"
+                           data-url="{{ route('users.follow',$user->id) }}" data-follow="{{  Auth::user()->isFollowing($user)? 'T' : 'F' }}"  id="user-follow-button" style="cursor:pointer;">
+                            <i class="fa fa-minus"></i>{{ Auth::user()->isFollowing($user)? ' 已关注' : ' 关注TA' }}
+                        </a>
+                        @endif
+                    @else
+                        <a data-method="post" class="btn btn-default btn-block" href="javascript:void(0);" data-url="https://laravel-china.org/users/follow/1" id="user-edit-button" style="cursor:pointer;">
+                            <i class="fa fa-minus"></i> 已关注
+                            <form action="https://laravel-china.org/users/follow/1" method="POST" style="display:none">
+                                <input type="hidden" name="_method" value="post">
+                                <input type="hidden" name="_token" value="8lv9k26SGR5FI5518q4fQhPEGmSbxGtvawV26MHN">
+                            </form>
+                        </a>
+                    @endif
                 </div>
-                <hr>
                 @can('update',$user)
+                    <hr>
                     <a class="btn btn-primary btn-block" href="{{ route('users.edit',$user->id) }}" id="user-edit-button">
                         <i class="fa fa-edit"></i> 编辑个人资料
                     </a>

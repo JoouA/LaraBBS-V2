@@ -26,8 +26,8 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-
         $topics = $user->topics()->orderBy('updated_at', 'desc')->paginate(5);
+
 
         $replies = $user->replies()->with('topic')->orderBy('created_at', 'desc')->paginate(5);
 
@@ -181,6 +181,59 @@ class UsersController extends Controller
             \Log::error('密码修改错误');
             return back()->with('danger', '密码修改失败');
         }
+
+    }
+
+    /**
+     * 关注和取消关注某个用户
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function Follow(User $user)
+    {
+        try{
+            Auth::user()->toggleFollow($user);
+
+            return response()->json([
+                'status' => 1,
+                'msg' => 'success!',
+                'user_id' => Auth::id(),
+                'followable_id' => $user->id,
+            ]);
+
+        }Catch(\Exception $e){
+            \Log::error('关注用户失败!');
+
+            return response()->json([
+                'status' => -1,
+                'msg' => 'failed!',
+                'user_id' => Auth::id(),
+                'followable_id' => $user->id,
+            ]);
+
+        }
+    }
+
+    /**
+     * 获得user的关注者
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function Followers(User $user)
+    {
+        $followers = $user->followers()->withCount(['topics','followers','replies'])->paginate(10);
+
+        return view('users.followers',compact('user','followers'));
+    }
+
+
+    public function Replies(User $user)
+    {
+
+    }
+
+    public function Topics(User $user)
+    {
 
     }
 }

@@ -13616,3 +13616,63 @@ body {
   height: 26px;
 }
 
+.users-show-page .follow-info {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.users-show-page .media-heading {
+  margin: 10px 0px;
+}
+
+.users-show-page .follow-info a {
+  display: block;
+  text-decoration: none;
+}
+
+.users-show-page .follow-info a.counter {
+  font-size: 32px;
+  color: #00b5ad;
+}
+
+.users-show-page .follow-info a.counter:hover {
+  color: #00c4bc;
+}
+
+.users-show-page .follow-info a.text {
+  color: #999;
+}
+
+.users-followers-page .follow-info,
+.users-votes-page .follow-info {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.users-followers-page .media-heading,
+.users-votes-page .media-heading {
+  margin: 10px 0px;
+}
+
+.users-followers-page .follow-info a,
+.users-votes-page .follow-info a {
+  display: block;
+  text-decoration: none;
+}
+
+.users-followers-page .follow-info a.counter,
+.users-votes-page .follow-info a.counter {
+  font-size: 32px;
+  color: #00b5ad;
+}
+
+.users-followers-page .follow-info a.counter:hover,
+.users-votes-page .follow-info a.counter:hover {
+  color: #00c4bc;
+}
+
+.users-followers-page .follow-info a.text,
+.users-votes-page .follow-info a.text {
+  color: #999;
+}
+

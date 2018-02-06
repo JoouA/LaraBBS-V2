@@ -54,7 +54,7 @@ class PagesController extends Controller
         if (! $request->user_id || ($request->user_id && $topics->total() == 0) ){
             $user = $request->user_id ? $user  : new  User;
             $users = User::withCount(['topics','replies'])->search($query, null, true)->orderBy('last_actived_at', 'desc')->limit(5)->get();
-            $topics = Topic::withCount(['replies'])->search($query, null, true)->paginate(30);
+            $topics = Topic::withCount(['replies','votes'])->search($query, null, true)->paginate(30);
         }
 
 

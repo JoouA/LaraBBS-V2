@@ -175,6 +175,8 @@ return [
         Toplan\Sms\SmsManagerServiceProvider::class,
         Overtrue\LaravelSingleSession\SingleSessionServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Overtrue\LaravelFollow\FollowServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

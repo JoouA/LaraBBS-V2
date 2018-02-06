@@ -48,19 +48,3 @@
         </div>
     </div>
 @endsection
-
-@section('scripts')
-    <script type="text/javascript" src="{{ asset('assets/js/marked.js') }}"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function()
-        {
-            var query = '{{ $query }}';
-            var results = query.match(/("[^"]+"|[^"\s]+)/g);
-            results.forEach(function(entry) {
-                $('.search-results').highlight(entry);
-            });
-        });
-
-    </script>
-@endsection
