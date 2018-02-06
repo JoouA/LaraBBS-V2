@@ -38,6 +38,7 @@ class PagesController extends Controller
     {
         $query = clean($request->input('q'),'search_q');
 
+        // 在用户里面进行搜索
         if ($request->user_id){
             $user = User::findOrFail($request->user_id);
 
@@ -46,14 +47,16 @@ class PagesController extends Controller
             $users = collect();
         }
 
+        // $topics是否出错了
         $filterd_noresult = isset($topics) ? $topics->total() == 0 : false;
 
         // 当不在用户内容进行搜索，或者当前用户没有你搜的内容的情况
         if (! $request->user_id || ($request->user_id && $topics->total() == 0) ){
             $user = $request->user_id ? $user  : new  User;
-            $users = User::search($query, null, true)->orderBy('last_actived_at', 'desc')->limit(5)->get();
-            $topics = Topic::search($query, null, true)->paginate(30);
+            $users = User::withCount(['topics','replies'])->search($query, null, true)->orderBy('last_actived_at', 'desc')->limit(5)->get();
+            $topics = Topic::withCount(['replies'])->search($query, null, true)->paginate(30);
         }
+
 
         return view('pages.search',compact('user','users','topics','query','filterd_noresult'));
 

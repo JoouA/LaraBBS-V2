@@ -42,13 +42,15 @@
         </div>
 
         <div class="panel-footer">
+            {{--{!! $topics->render() !!}--}}
+            <!--  appends()是为了将  q的内容在url中显示出来，然后在搜索结果的关于xxx 中就会显示q -->
             {!! $topics->appends(Request::except('page'))->render() !!}
         </div>
     </div>
 @endsection
 
 @section('scripts')
-
+    <script type="text/javascript" src="{{ asset('assets/js/marked.js') }}"></script>
     <script type="text/javascript">
 
         $(document).ready(function()
