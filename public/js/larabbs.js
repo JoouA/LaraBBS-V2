@@ -56,7 +56,7 @@ $('#up-vote').click(function (event) {
 });
 
 // 用户退出登录
-$('#login-out').on('click', function(e) {
+$('#login-out').on('click', function (e) {
     var langText = $(this).data('lang-loginout');
 
     swal({
@@ -69,11 +69,11 @@ $('#login-out').on('click', function(e) {
         cancelButtonText: "取消",
         confirmButtonText: "退出",
     }).then(function (result) {
-        if (result.value){
+        if (result.value) {
             event.preventDefault();
             document.getElementById('logout-form').submit();
             console.log('logout success');
-        }else {
+        } else {
             console.log('logout cancel');
         }
     });
@@ -82,7 +82,7 @@ $('#login-out').on('click', function(e) {
 });
 
 // 用户关注
-$('#user-follow-button').on('click',function (event) {
+$('#user-follow-button').on('click', function (event) {
     var target = $(event.target);
 
     var url = target.attr('data-url');
@@ -93,23 +93,32 @@ $('#user-follow-button').on('click',function (event) {
         url: url,
         method: 'POST',
         success: function (data) {
-            if (data.status === 1){
+            if (data.status === 1) {
 
                 // 如果已经关注
-                if (isFollow == 'T'){
-                    target.html('<i class='+'"fa fa-minus"></i>'+' 关注Ta');
+                if (isFollow == 'T') {
+                    target.html('<i class=' + '"fa fa-minus"></i>' + ' 关注Ta');
                     $('#user-follow-button').removeClass('btn-default').addClass('btn-danger');
-                    target.attr('data-follow','F');
-                }else{
-                    target.html('<i class='+'"fa fa-minus"></i>'+' 已关注');
+                    target.attr('data-follow', 'F');
+                    // 当前页面的关注者-1
+                    var follower_number = Number($('#followers').text()) - 1;
+                    $('#followers').text(follower_number);
+
+                } else {
+                    target.html('<i class=' + '"fa fa-minus"></i>' + ' 已关注');
                     $('#user-follow-button').removeClass('btn-danger').addClass('btn-default');
-                    target.attr('data-follow','T');
+                    target.attr('data-follow', 'T');
+                    // 当前页面的关注者+1
+                    var follower_number = Number($('#followers').text()) + 1;
+                    $('#followers').text(follower_number);
                 }
+
+                console.log($('#followers').val());
 
                 console.log(data.msg);
             }
 
-            if (data.status === -1){
+            if (data.status === -1) {
                 console.log(data.msg);
             }
 

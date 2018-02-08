@@ -16,7 +16,7 @@
                     <hr>
                     <div class="follow-info row">
                         <div class="col-xs-4">
-                            <a class="counter" href="{{ route('users.followers',$user->id) }}">{{ $user->followers->count() }}</a>
+                            <a class="counter"  id="followers" href="{{ route('users.followers',$user->id) }}">{{ $user->followers->count() }}</a>
                             <a class="text" href="{{ route('users.followers',$user->id) }}">关注者</a>
                         </div>
                         <div class="col-xs-4">

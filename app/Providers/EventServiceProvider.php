@@ -22,6 +22,11 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Authenticated' => [
             'App\Listeners\StoreLastSession'
         ],
+        // 当用户创建Topic的时候，发消息给那些关注他的人
+        'App\Events\CreateTopic' => [
+            'App\Listeners\SendNotificationToFollowers',
+        ],
+
     ];
 
     /**

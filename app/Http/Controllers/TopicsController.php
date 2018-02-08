@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateTopic;
 use App\Handlers\ImageUploadHandlers;
 use App\Http\Requests\TopicRequest;
 use App\Models\Category;
@@ -67,6 +68,8 @@ class TopicsController extends Controller
             $topic->user_id = \Auth::id();
 
             $topic->save();
+
+            event(new  CreateTopic(Auth::user(),$topic));
 
             return redirect()->to($topic->link())->with('success', '专题创建成功!');
         } catch (\Exception $e) {
