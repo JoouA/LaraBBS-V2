@@ -86,7 +86,8 @@ body {
 }
 
 /* User profile page */
-.users-show-page, .users-votes-page {
+.users-show-page, .users-votes-page, .users-followers-page, .users-votes-page, .users-topics-page,.users-edit-page,
+.users-edit_avatar-page, .users-edit_password-page, .users-replies-page,.users-followings-page{
   .user-info {
     .thumbnail {
       margin-bottom: 0px;
@@ -494,7 +495,8 @@ body {
 
 
 // users follower
-.users-followers-page, .users-votes-page{
+.users-followers-page, .users-votes-page, .users-topics-page, .users-replies-page
+,.users-followings-page{
   .follow-info {
     text-align: center;
     margin-top: 15px;

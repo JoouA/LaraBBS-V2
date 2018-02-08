@@ -42,14 +42,6 @@
                             <i class="fa fa-minus"></i>{{ Auth::user()->isFollowing($user)? ' 已关注' : ' 关注TA' }}
                         </a>
                         @endif
-                    @else
-                        <a data-method="post" class="btn btn-default btn-block" href="javascript:void(0);" data-url="https://laravel-china.org/users/follow/1" id="user-edit-button" style="cursor:pointer;">
-                            <i class="fa fa-minus"></i> 已关注
-                            <form action="https://laravel-china.org/users/follow/1" method="POST" style="display:none">
-                                <input type="hidden" name="_method" value="post">
-                                <input type="hidden" name="_token" value="8lv9k26SGR5FI5518q4fQhPEGmSbxGtvawV26MHN">
-                            </form>
-                        </a>
                     @endif
                 </div>
                 @can('update',$user)
@@ -64,7 +56,7 @@
     <div class="box text-center">
         <div class="padding-sm user-basic-nav">
             <ul class="list-group">
-                <a href="https://laravel-china.org/users/19867/following" class="">
+                <a href="{{ route('users.followings',$user->id) }}" class="">
                     <li class="list-group-item"><i class="text-md fa fa-eye"></i> Ta 关注的用户</li>
                 </a>
                 <a href="{{ route('users.votes',$user->id) }}" class="">

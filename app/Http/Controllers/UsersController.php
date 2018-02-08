@@ -16,7 +16,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['show', 'votes']);
+        $this->middleware('auth')->except(['show', 'votes','followers','followings','replies','topics']);
     }
 
     /**
@@ -47,7 +47,8 @@ class UsersController extends Controller
     }
 
 
-    /** 更新个人信息
+    /**
+     * 更新个人信息
      * @param UserRequest $request
      * @param User $user
      * @param ImageUploadHandlers $uploader
@@ -78,7 +79,8 @@ class UsersController extends Controller
 
     }
 
-    /** 返回用户的点赞文章
+    /**
+     * 返回用户的点赞文章
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -90,19 +92,24 @@ class UsersController extends Controller
         return view('users.votes', compact('topics', 'user'));
     }
 
-    /** 设置个人头像
+    /**
+     * 设置个人头像
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function avatar(User $user)
     {
+        $this->authorize('update',$user);
         return view('users.avatar', compact('user'));
     }
 
 
-    /** 更新个人头像
+    /**
+     * 更新个人头像
      * @param Request $request
      * @return string
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function updateAvatar(Request $request)
     {
@@ -111,6 +118,8 @@ class UsersController extends Controller
             $user_id = $request->user_id;
         }
 
+        $user = User::find($user_id);
+        $this->authorize('update',$user);
 
         if ($request->has('slim') && $request->slim[0]) {
 
@@ -128,7 +137,6 @@ class UsersController extends Controller
                 $data = app(ImageUploadHandlers::class)->save_base64_image($image, 'avatars', $user_id, 362);
                 if (is_array($data) && $data['status'] == 0) {
 
-                    $user = User::find($user_id);
                     $user->avatar =  $data['path'];
                     $user->save();
 //                    Auth::user()->update(['avatar' => $data['path']]);
@@ -140,12 +148,15 @@ class UsersController extends Controller
         return '非使用slim cropper裁剪';
     }
 
-    /** 显示重置密码的界面
+    /**
+     *  显示重置密码的界面
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function passwordForm(User $user)
     {
+        $this->authorize('edit',$user);
         return view('users.password', compact('user'));
     }
 
@@ -154,9 +165,12 @@ class UsersController extends Controller
      * @param Request $request
      * @param User $user
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function updatePassword(Request $request, User $user)
     {
+        $this->authorize('update',$user);
+
         $rules = [
             'email' => 'required|unique:users,email,' . $user->id,
             'password' => 'required|confirmed|min:6|max:16',
@@ -189,7 +203,7 @@ class UsersController extends Controller
      * @param User $user
      * @return \Illuminate\Http\JsonResponse
      */
-    public function Follow(User $user)
+    public function follow(User $user)
     {
         try{
             Auth::user()->toggleFollow($user);
@@ -219,21 +233,44 @@ class UsersController extends Controller
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function Followers(User $user)
+    public function followers(User $user)
     {
-        $followers = $user->followers()->withCount(['topics','followers','replies'])->paginate(10);
+        $followers = $user->followers()->withCount(['topics','followers','replies'])->orderByDesc('pivot_created_at')->paginate(10);
 
         return view('users.followers',compact('user','followers'));
     }
 
-
-    public function Replies(User $user)
+    /**
+     * 获得用户关注的人的
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function followings(User $user)
     {
+        $followings =  $user->followings()->withCount(['topics','followers','replies'])->orderByDesc('pivot_created_at')->paginate(10);
+        return view('users.followings',compact('user','followings'));
+    }
+    /**
+     * 用户的回复界面
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function replies(User $user)
+    {
+        $replies = $user->replies()->with('topic')->orderBy('updated_at','desc')->paginate(10);
 
+        return view('users.replies',compact('user','replies'));
     }
 
-    public function Topics(User $user)
+    /**
+     * 用户的文章界面
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function topics(User $user)
     {
+        $topics = $user->topics()->with('category')->withCount(['votes','replies'])->orderBy('updated_at','desc')->paginate(10);
 
+        return view('users.topics',compact('user','topics'));
     }
 }

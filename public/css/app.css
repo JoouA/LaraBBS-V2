@@ -12777,45 +12777,109 @@ body {
 /* User profile page */
 
 .users-show-page .user-info .thumbnail,
-.users-votes-page .user-info .thumbnail {
+.users-votes-page .user-info .thumbnail,
+.users-followers-page .user-info .thumbnail,
+.users-votes-page .user-info .thumbnail,
+.users-topics-page .user-info .thumbnail,
+.users-edit-page .user-info .thumbnail,
+.users-edit_avatar-page .user-info .thumbnail,
+.users-edit_password-page .user-info .thumbnail,
+.users-replies-page .user-info .thumbnail,
+.users-followings-page .user-info .thumbnail {
   margin-bottom: 0px;
 }
 
 .users-show-page .nav-tabs,
-.users-votes-page .nav-tabs {
+.users-votes-page .nav-tabs,
+.users-followers-page .nav-tabs,
+.users-votes-page .nav-tabs,
+.users-topics-page .nav-tabs,
+.users-edit-page .nav-tabs,
+.users-edit_avatar-page .nav-tabs,
+.users-edit_password-page .nav-tabs,
+.users-replies-page .nav-tabs,
+.users-followings-page .nav-tabs {
   margin-bottom: 20px;
 }
 
 .users-show-page .nav-tabs > li.active > a,
-.users-votes-page .nav-tabs > li.active > a {
+.users-votes-page .nav-tabs > li.active > a,
+.users-followers-page .nav-tabs > li.active > a,
+.users-votes-page .nav-tabs > li.active > a,
+.users-topics-page .nav-tabs > li.active > a,
+.users-edit-page .nav-tabs > li.active > a,
+.users-edit_avatar-page .nav-tabs > li.active > a,
+.users-edit_password-page .nav-tabs > li.active > a,
+.users-replies-page .nav-tabs > li.active > a,
+.users-followings-page .nav-tabs > li.active > a {
   background-color: #fff;
 }
 
 .users-show-page .list-group .list-group-item,
-.users-votes-page .list-group .list-group-item {
+.users-votes-page .list-group .list-group-item,
+.users-followers-page .list-group .list-group-item,
+.users-votes-page .list-group .list-group-item,
+.users-topics-page .list-group .list-group-item,
+.users-edit-page .list-group .list-group-item,
+.users-edit_avatar-page .list-group .list-group-item,
+.users-edit_password-page .list-group .list-group-item,
+.users-replies-page .list-group .list-group-item,
+.users-followings-page .list-group .list-group-item {
   border: none;
   margin-bottom: 0px;
   border-bottom: 1px solid #efefef;
 }
 
 .users-show-page .list-group .list-group-item .meta,
-.users-votes-page .list-group .list-group-item .meta {
+.users-votes-page .list-group .list-group-item .meta,
+.users-followers-page .list-group .list-group-item .meta,
+.users-votes-page .list-group .list-group-item .meta,
+.users-topics-page .list-group .list-group-item .meta,
+.users-edit-page .list-group .list-group-item .meta,
+.users-edit_avatar-page .list-group .list-group-item .meta,
+.users-edit_password-page .list-group .list-group-item .meta,
+.users-replies-page .list-group .list-group-item .meta,
+.users-followings-page .list-group .list-group-item .meta {
   color: #b3b3b3;
 }
 
 .users-show-page .pagination,
-.users-votes-page .pagination {
+.users-votes-page .pagination,
+.users-followers-page .pagination,
+.users-votes-page .pagination,
+.users-topics-page .pagination,
+.users-edit-page .pagination,
+.users-edit_avatar-page .pagination,
+.users-edit_password-page .pagination,
+.users-replies-page .pagination,
+.users-followings-page .pagination {
   margin: 12px 0;
 }
 
 .users-show-page .meta,
-.users-votes-page .meta {
+.users-votes-page .meta,
+.users-followers-page .meta,
+.users-votes-page .meta,
+.users-topics-page .meta,
+.users-edit-page .meta,
+.users-edit_avatar-page .meta,
+.users-edit_password-page .meta,
+.users-replies-page .meta,
+.users-followings-page .meta {
   font-size: .9em;
   color: #b3b3b3;
 }
 
 .users-show-page .reply-content,
-.users-votes-page .reply-content {
+.users-votes-page .reply-content,
+.users-followers-page .reply-content,
+.users-votes-page .reply-content,
+.users-topics-page .reply-content,
+.users-edit-page .reply-content,
+.users-edit_avatar-page .reply-content,
+.users-edit_password-page .reply-content,
+.users-replies-page .reply-content,
+.users-followings-page .reply-content {
   margin: 6px 0;
 }
 
@@ -13644,35 +13708,53 @@ body {
 }
 
 .users-followers-page .follow-info,
-.users-votes-page .follow-info {
+.users-votes-page .follow-info,
+.users-topics-page .follow-info,
+.users-replies-page .follow-info,
+.users-followings-page .follow-info {
   text-align: center;
   margin-top: 15px;
 }
 
 .users-followers-page .media-heading,
-.users-votes-page .media-heading {
+.users-votes-page .media-heading,
+.users-topics-page .media-heading,
+.users-replies-page .media-heading,
+.users-followings-page .media-heading {
   margin: 10px 0px;
 }
 
 .users-followers-page .follow-info a,
-.users-votes-page .follow-info a {
+.users-votes-page .follow-info a,
+.users-topics-page .follow-info a,
+.users-replies-page .follow-info a,
+.users-followings-page .follow-info a {
   display: block;
   text-decoration: none;
 }
 
 .users-followers-page .follow-info a.counter,
-.users-votes-page .follow-info a.counter {
+.users-votes-page .follow-info a.counter,
+.users-topics-page .follow-info a.counter,
+.users-replies-page .follow-info a.counter,
+.users-followings-page .follow-info a.counter {
   font-size: 32px;
   color: #00b5ad;
 }
 
 .users-followers-page .follow-info a.counter:hover,
-.users-votes-page .follow-info a.counter:hover {
+.users-votes-page .follow-info a.counter:hover,
+.users-topics-page .follow-info a.counter:hover,
+.users-replies-page .follow-info a.counter:hover,
+.users-followings-page .follow-info a.counter:hover {
   color: #00c4bc;
 }
 
 .users-followers-page .follow-info a.text,
-.users-votes-page .follow-info a.text {
+.users-votes-page .follow-info a.text,
+.users-topics-page .follow-info a.text,
+.users-replies-page .follow-info a.text,
+.users-followings-page .follow-info a.text {
   color: #999;
 }
 

@@ -41,10 +41,11 @@ Route::get('users/{user}/edit_avatar','UsersController@avatar')->name('users.edi
 Route::post('users/update_avatar','UsersController@updateAvatar')->name('users.update_avatar');
 Route::get('users/{user}/edit_password','UsersController@passwordForm')->name('users.edit_password');
 Route::put('users/{user}/update_password','UsersController@updatePassword')->name('users.update_password');
-Route::post('users/follow/{user}','UsersController@Follow')->name('users.follow');
-Route::get('users/{user}/followers','UsersController@Followers')->name('users.followers');
-Route::get('users/{user}/replies','UsersController@Replies')->name('users.replies');
-Route::get('users/{user}/topics','UsersController@Topics')->name('users.topics');
+Route::post('users/follow/{user}','UsersController@follow')->name('users.follow');
+Route::get('users/{user}/followers','UsersController@followers')->name('users.followers');
+Route::get('users/{user}/following','UsersController@followings')->name('users.followings');
+Route::get('users/{user}/replies','UsersController@replies')->name('users.replies');
+Route::get('users/{user}/topics','UsersController@topics')->name('users.topics');
 
 
 // topics

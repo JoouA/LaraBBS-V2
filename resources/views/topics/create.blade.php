@@ -58,7 +58,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/beautify-html.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/simditor-html.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/Simditor-PrettyEmoji/lib/simditor-prettyemoji.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/simditor-autosave.js') }}"></script>
+    {{--<script type="text/javascript" src="{{ asset('assets/js/simditor-autosave.js') }}"></script>--}}
 
     <!-- simditor-markdown -->
     <script type="text/javascript" src="{{ asset('assets/js/marked.js') }}"></script>
@@ -74,7 +74,7 @@
         $(document).ready(function(){
             var editor = new Simditor({
                 textarea: $('#editor'),
-                autosave: 'editor-content',
+                // autosave: 'editor-content',
                 toolbar: ['bold', 'italic', 'color' , 'fontScale' ,'underline', 'strikethrough', '|', 'ol', 'ul', 'blockquote', 'code', '|', 'link', 'image', 'emoji','|', 'html','markdown' ,'indent', 'outdent'],
                 emoji: {
                     autoClose: true,
