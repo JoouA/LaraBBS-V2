@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class NotificationsController extends Controller
 {
 
+    /**
+     *
+     * NotificationsController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $notifications = \Auth::user()->notifications()->paginate(20);

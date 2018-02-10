@@ -12785,7 +12785,11 @@ body {
 .users-edit_avatar-page .user-info .thumbnail,
 .users-edit_password-page .user-info .thumbnail,
 .users-replies-page .user-info .thumbnail,
-.users-followings-page .user-info .thumbnail {
+.users-followings-page .user-info .thumbnail,
+.notifications-messages-page .user-info .thumbnail,
+.notifications-index-page .user-info .thumbnail,
+.notifications-show-page .user-info .thumbnail,
+.notifications-to-page .user-info .thumbnail {
   margin-bottom: 0px;
 }
 
@@ -12798,7 +12802,11 @@ body {
 .users-edit_avatar-page .nav-tabs,
 .users-edit_password-page .nav-tabs,
 .users-replies-page .nav-tabs,
-.users-followings-page .nav-tabs {
+.users-followings-page .nav-tabs,
+.notifications-messages-page .nav-tabs,
+.notifications-index-page .nav-tabs,
+.notifications-show-page .nav-tabs,
+.notifications-to-page .nav-tabs {
   margin-bottom: 20px;
 }
 
@@ -12811,7 +12819,11 @@ body {
 .users-edit_avatar-page .nav-tabs > li.active > a,
 .users-edit_password-page .nav-tabs > li.active > a,
 .users-replies-page .nav-tabs > li.active > a,
-.users-followings-page .nav-tabs > li.active > a {
+.users-followings-page .nav-tabs > li.active > a,
+.notifications-messages-page .nav-tabs > li.active > a,
+.notifications-index-page .nav-tabs > li.active > a,
+.notifications-show-page .nav-tabs > li.active > a,
+.notifications-to-page .nav-tabs > li.active > a {
   background-color: #fff;
 }
 
@@ -12824,7 +12836,11 @@ body {
 .users-edit_avatar-page .list-group .list-group-item,
 .users-edit_password-page .list-group .list-group-item,
 .users-replies-page .list-group .list-group-item,
-.users-followings-page .list-group .list-group-item {
+.users-followings-page .list-group .list-group-item,
+.notifications-messages-page .list-group .list-group-item,
+.notifications-index-page .list-group .list-group-item,
+.notifications-show-page .list-group .list-group-item,
+.notifications-to-page .list-group .list-group-item {
   border: none;
   margin-bottom: 0px;
   border-bottom: 1px solid #efefef;
@@ -12839,7 +12855,11 @@ body {
 .users-edit_avatar-page .list-group .list-group-item .meta,
 .users-edit_password-page .list-group .list-group-item .meta,
 .users-replies-page .list-group .list-group-item .meta,
-.users-followings-page .list-group .list-group-item .meta {
+.users-followings-page .list-group .list-group-item .meta,
+.notifications-messages-page .list-group .list-group-item .meta,
+.notifications-index-page .list-group .list-group-item .meta,
+.notifications-show-page .list-group .list-group-item .meta,
+.notifications-to-page .list-group .list-group-item .meta {
   color: #b3b3b3;
 }
 
@@ -12852,7 +12872,11 @@ body {
 .users-edit_avatar-page .pagination,
 .users-edit_password-page .pagination,
 .users-replies-page .pagination,
-.users-followings-page .pagination {
+.users-followings-page .pagination,
+.notifications-messages-page .pagination,
+.notifications-index-page .pagination,
+.notifications-show-page .pagination,
+.notifications-to-page .pagination {
   margin: 12px 0;
 }
 
@@ -12865,7 +12889,11 @@ body {
 .users-edit_avatar-page .meta,
 .users-edit_password-page .meta,
 .users-replies-page .meta,
-.users-followings-page .meta {
+.users-followings-page .meta,
+.notifications-messages-page .meta,
+.notifications-index-page .meta,
+.notifications-show-page .meta,
+.notifications-to-page .meta {
   font-size: .9em;
   color: #b3b3b3;
 }
@@ -12879,7 +12907,11 @@ body {
 .users-edit_avatar-page .reply-content,
 .users-edit_password-page .reply-content,
 .users-replies-page .reply-content,
-.users-followings-page .reply-content {
+.users-followings-page .reply-content,
+.notifications-messages-page .reply-content,
+.notifications-index-page .reply-content,
+.notifications-show-page .reply-content,
+.notifications-to-page .reply-content {
   margin: 6px 0;
 }
 

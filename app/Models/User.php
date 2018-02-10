@@ -10,6 +10,7 @@ use Overtrue\LaravelFollow\Traits\CanBeFollowed;
 use Overtrue\LaravelFollow\Traits\CanFollow;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\ActiveUserHelper;
+use Cmgmyr\Messenger\Traits\Messagable;
 
 class User extends Authenticatable
 {
@@ -25,6 +26,8 @@ class User extends Authenticatable
     use SearchableTrait;
 
     use CanFollow,CanBeFollowed;
+
+    use Messagable;
 
     protected $searchable = [
         'columns' => [

@@ -36,11 +36,14 @@
                     <p title="{{ $user->last_actived_at }}">{{ $user->last_actived_at->diffForHumans() }}</p>
                     @if(Auth::check())
                         @if($user->id !== Auth::id())
-                        <hr>
-                        <a  class="btn btn-block {{ Auth::user()->isFollowing($user)? 'btn-default' : 'btn-danger' }} "  href="javascript:void(0);"
-                           data-url="{{ route('users.follow',$user->id) }}" data-follow="{{  Auth::user()->isFollowing($user)? 'T' : 'F' }}"  id="user-follow-button" style="cursor:pointer;">
-                            <i class="fa fa-minus"></i>{{ Auth::user()->isFollowing($user)? ' 已关注' : ' 关注TA' }}
-                        </a>
+                            <hr>
+                            <a  class="btn btn-block {{ Auth::user()->isFollowing($user)? 'btn-default' : 'btn-danger' }} "  href="javascript:void(0);"
+                               data-url="{{ route('users.follow',$user->id) }}" data-follow="{{  Auth::user()->isFollowing($user)? 'T' : 'F' }}"  id="user-follow-button" style="cursor:pointer;">
+                                <i class="fa fa-minus"></i>{{ Auth::user()->isFollowing($user)? ' 已关注' : ' 关注TA' }}
+                            </a>
+                            <a class="btn btn-default btn-block" href="{{ route('messages.create',$user->id) }}">
+                                <i class="fa fa-envelope-o"></i> 发私信
+                            </a>
                         @endif
                     @endif
                 </div>

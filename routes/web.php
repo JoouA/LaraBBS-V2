@@ -75,4 +75,12 @@ Route::group(['middleware' => ['auth','web']],function (){
     Route::resource('notifications','NotificationsController',['only' => ['index']]);
 });
 
+
+// messages
+Route::get('messages','MessagesController@index')->name('messages.index');
+Route::get('messages/{id}','MessagesController@show')->name('messages.show');
+Route::get('messages/to/{user}','MessagesController@create')->name('messages.create');
+Route::post('messages','MessagesController@store')->name('messages.store');
+
+
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('founder');
