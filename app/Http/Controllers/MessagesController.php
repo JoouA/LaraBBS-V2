@@ -29,17 +29,26 @@ class MessagesController extends Controller
 
     public function show($id)
     {
+        // 两个人之间的对应是一个thread
+
+
         $thread = Thread::findOrFail($id);
+        // 获得两个人对话中的另外一个用户
         $participant = $thread->participant();
-        $messages = $thread->messages()->get();
 
+        // 获得两个人之间的对话消息
+        $messages = $thread->messages->sortByDesc('created_at');
 
-        // counters
+        // counters  当前thread中还没有读的消息的数量
         $unread_message_count = $thread->userUnreadMessagesCount(Auth::id());
+
+
         if ($unread_message_count > 0) {
             Auth::user()->message_count -= $unread_message_count;
             Auth::user()->save();
         }
+
+        // 将thread中当前用户的消息标志位已读
         $thread->markAsRead(Auth::id());
 
         return view('messages.show', compact('thread', 'participant', 'messages', 'unread_message_count'));

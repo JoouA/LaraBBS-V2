@@ -122,7 +122,7 @@
         });
     </script>--}}
     <script type="text/javascript">
-        var reply_datas = [];
+        /*var reply_datas = [];
 
         $.ajax({
             url : '{{ route('replies.users',$topic->id) }}' ,
@@ -131,13 +131,13 @@
             success: function (data) {
                 $.each(data.replies,function (index,obj) {
 
-                    reply_data = { id:obj.user.id,name:obj.user.name };
+                    var reply_data = { id:obj.user.id,name:obj.user.name };
 
                     reply_datas.push(reply_data);
 
                 });
             }
-        });
+        });*/
 
         $(function() {
             var editor = new Simditor({
@@ -156,7 +156,7 @@
                     imagePath: '/vendor/Simditor-PrettyEmoji/images/emoji/',
                     categories: ["face","fashion","animal","food","travel","time","work","font","tool","other"]
                 },
-                mention:{
+                /*mention:{
                     items: reply_datas,
                     itemRenderer:function($itemEl,data){
                         $span = $('span',$itemEl)
@@ -166,13 +166,13 @@
                     linkRenderer:function($linkEl,data){
                         $linkEl.attr('href', '{{ config('app.url') }}' + '/users/'  +data.id);
                     }
-                },
+                },*/
             });
 
-            $(editor).on("mention",function(e,el,data){
+            /*$(editor).on("mention",function(e,el,data){
                 color = ( data.id%2==0? 'blue' : 'red' )
                 $(el).css('color',color);
-            });
+            });*/
 
         });
     </script>
