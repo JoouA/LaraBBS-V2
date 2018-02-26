@@ -44,4 +44,9 @@ return [
         'client_secret' => env('GITHUBSECRET'),
         'redirect' => env('GITHUBCALLBACK'),
     ],
+    'weixin' => [
+        'client_id' => env('WEIXIN_KEY'),
+        'client_secret' => env('WEIXIN_SECRET'),
+        'redirect' => env('WEIXIN_REDIRECT_URL'),
+    ],
 ];
