@@ -9,6 +9,11 @@ use Cache;
 
 class VerificationCodesController extends Controller
 {
+    /**
+     * 发送验证码，就信息存在Cache中
+     * @param VerificationCodeRequest $request
+     * @param EasySms $easySms
+     */
     public function store(VerificationCodeRequest $request, EasySms $easySms)
     {
         $mobile = $request->mobile;
