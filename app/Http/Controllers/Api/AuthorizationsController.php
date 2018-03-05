@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\SocialAuthorizationRequest;
 use App\Models\User;
-use App\Http\Requests\Api\AuthorizationRequest;
-use Illuminate\Http\Request;
 
 class AuthorizationsController extends Controller
 {
-    public function socialStore($type,AuthorizationRequest $request)
+    public function socialStore($type,SocialAuthorizationRequest $request)
     {
         if (!in_array($type,['weixin'])){
             return $this->response->errorBadRequest();
@@ -39,6 +38,7 @@ class AuthorizationsController extends Controller
                 if ($unionid) {
                     $user = User::where('weixin_unionid', $unionid)->first();
                 } else {
+                    // 根据登录的用户去查找weixin_openid 
                     $user = User::where('weixin_openid', $oauthUser->getId())->first();
                 }
 
