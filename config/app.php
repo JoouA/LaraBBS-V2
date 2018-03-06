@@ -178,7 +178,8 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Overtrue\LaravelFollow\FollowServiceProvider::class,
         Cmgmyr\Messenger\MessengerServiceProvider::class,
-        \SocialiteProviders\Manager\ServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
+
 
         /*
          * Application Service Providers...
