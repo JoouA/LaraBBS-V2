@@ -11,8 +11,9 @@ use Overtrue\LaravelFollow\Traits\CanFollow;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\ActiveUserHelper;
 use Cmgmyr\Messenger\Traits\Messagable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasRoles;
     use LastActivedAtHelper;
@@ -169,5 +170,19 @@ class User extends Authenticatable
     public function isVote(Topic $topic)
     {
         return (bool)$this->votes()->where('topic_id',$topic->id)->count();
+    }
+
+
+    // jwt
+
+    //获取用户的id
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

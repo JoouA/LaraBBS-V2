@@ -169,7 +169,7 @@ return [
     */
 
     'auth' => [
-
+        'jwt' => 'Dingo\APi\Auth\Provider\JWT',
     ],
 
     /*
