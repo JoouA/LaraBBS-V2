@@ -12,6 +12,7 @@ use App\Observers\ReplyObserver;
 use App\Observers\UserObserver;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Carbon\Carbon;
+use Dingo\Api\Facade\API;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\TopicObserver;
 
@@ -55,5 +56,13 @@ class AppServiceProvider extends ServiceProvider
         if (app()->isLocal()) {
             $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
         }
+
+        API::error(function (\Illuminate\Database\Eloquent\ModelNotFoundException $exception){
+            abort(404);
+        });
+
+        API::error(function (\Illuminate\Auth\Access\AuthorizationException $exception) {
+            abort(403, $exception->getMessage());
+        });
     }
 }
