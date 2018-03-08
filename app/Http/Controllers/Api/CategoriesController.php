@@ -12,6 +12,6 @@ class CategoriesController extends Controller
     {
         $categories = Category::all();
 
-        return $this->collection($categories,new CategoryTransformer());
+        return $this->response->collection($categories,new CategoryTransformer());
     }
 }
