@@ -102,6 +102,9 @@ $api->version('v1',[
             // 删除评论
             $api->delete('replies/{reply}','RepliesController@destroy')->name('api.replies.destroy');
 
+            // 通知列表
+            $api->get('user/notifications','NotificationsController@index')->name('api.user.notifications.index');
+
 
         });
     });
