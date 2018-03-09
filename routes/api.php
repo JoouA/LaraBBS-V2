@@ -60,6 +60,9 @@ $api->version('v1',[
         // 获取topic列表
         $api->get('topics','TopicsController@index')->name('api.topics.index');
 
+        // 获取topic详情
+        $api->get('topics/{topic}','TopicsController@show')->name('api.topics.show');
+
         //获取某人发布的topics
         $api->get('users/{user}/topics','TopicsController@userIndex')->name('api.users.topics.index');
 

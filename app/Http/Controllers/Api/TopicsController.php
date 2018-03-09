@@ -71,11 +71,26 @@ class TopicsController extends Controller
         return $this->response->item($topic,new TopicTransformer());
     }
 
+    /**
+     * 显示某一个topic的详情
+     * @param Topic $topic
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show(Topic $topic)
+    {
+        return $this->response->item($topic,new TopicTransformer());
+    }
 
+    /**
+     * 一个用户的的topics
+     * @param User $user
+     * @return \Dingo\Api\Http\Response
+     */
     public function userIndex(User $user)
     {
         $topics = $user->topics()->recent()->paginate(20);
 
         return $this->response->paginator($topics,new TopicTransformer());
     }
+
 }
