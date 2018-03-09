@@ -4,12 +4,38 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Reply;
 use App\Models\Topic;
+use App\Models\User;
 use App\Transformers\ReplyTransformer;
-use Illuminate\Http\Request;
 use App\Http\Requests\Api\ReplyRequest;
 
 class RepliesController extends Controller
 {
+
+    /**
+     * 获取topic的replies
+     * @param Topic $topic
+     * @return \Dingo\Api\Http\Response
+     */
+    public function index(Topic $topic)
+    {
+        $replies = $topic->replies()->paginate(10);
+
+        return $this->response->paginator($replies,new ReplyTransformer());
+    }
+
+
+    /**
+     * 获取用户的评论
+     * @param User $user
+     * @return \Dingo\Api\Http\Response
+     */
+    public function userIndex(User $user)
+    {
+        $replies = $user->replies()->paginate(10);
+
+        return $this->response->paginator($replies,new ReplyTransformer());
+    }
+
     /**
      * 保存reply
      * @param ReplyRequest $request

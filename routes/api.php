@@ -66,6 +66,13 @@ $api->version('v1',[
         //获取某人发布的topics
         $api->get('users/{user}/topics','TopicsController@userIndex')->name('api.users.topics.index');
 
+        // 评论列表
+        $api->get('topics/{topic}/replies','RepliesController@index')->name('api.topics.replies.index');
+
+        //某个用户评论列表
+        $api->get('users/{user}/replies','RepliesController@userIndex')->name('api.users.replies.index');
+
+
         //需要token的接口
         $api->group([ 'middleware' => 'api.auth' ],function ($api){
             //当前用户的登录信息
