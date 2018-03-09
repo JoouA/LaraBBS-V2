@@ -66,4 +66,16 @@ class UsersController extends Controller
 
         return $this->response->item($user, new UserTransformer());
     }
+
+    /**
+     * 获得活跃用户的数据
+     * @param User $user
+     * @return \Dingo\Api\Http\Response
+     */
+    public function activeUsers(User $user)
+    {
+        $users = $user->getActiveUsers();
+
+        return $this->response->collection($users,new UserTransformer());
+    }
 }

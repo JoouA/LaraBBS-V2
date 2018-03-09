@@ -76,6 +76,10 @@ $api->version('v1',[
         $api->get('links','LinksController@index')->name('api.links.index');
 
 
+        // 活跃用户接口
+        $api->get('users/actived','UsersController@activeUsers')->name('api.users.actived');
+
+
         //需要token的接口
         $api->group([ 'middleware' => 'api.auth' ],function ($api){
             //当前用户的登录信息

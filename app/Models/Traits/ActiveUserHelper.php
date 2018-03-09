@@ -100,7 +100,7 @@ trait ActiveUserHelper
     }
 
     /**
-     *
+     * 计算reply得分
      */
     private function calculateReplyScore()
     {
