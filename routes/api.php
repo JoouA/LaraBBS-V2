@@ -57,6 +57,12 @@ $api->version('v1',[
         // 游客可以访问的接口
         $api->get('categories','CategoriesController@index')->name('api.categories.index');
 
+        // 获取topic列表
+        $api->get('topics','TopicsController@index')->name('api.topics.index');
+
+        //获取某人发布的topics
+        $api->get('users/{user}/topics','TopicsController@userIndex')->name('api.users.topics.index');
+
         //需要token的接口
         $api->group([ 'middleware' => 'api.auth' ],function ($api){
             //当前用户的登录信息
