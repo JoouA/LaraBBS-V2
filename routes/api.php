@@ -72,6 +72,9 @@ $api->version('v1',[
         //某个用户评论列表
         $api->get('users/{user}/replies','RepliesController@userIndex')->name('api.users.replies.index');
 
+        // 推荐资源接口
+        $api->get('links','LinksController@index')->name('api.links.index');
+
 
         //需要token的接口
         $api->group([ 'middleware' => 'api.auth' ],function ($api){
