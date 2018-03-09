@@ -71,6 +71,22 @@ class TopicsController extends Controller
         return $this->response->item($topic,new TopicTransformer());
     }
 
+
+    /**
+     * 删除topic
+     * @param Topic $topic
+     * @return \Dingo\Api\Http\Response
+     */
+    public function destroy(Topic $topic)
+    {
+        $this->authorize('update',$topic);
+
+        $topic->delete();
+
+        return $this->response->noContent();
+    }
+
+
     /**
      * 显示某一个topic的详情
      * @param Topic $topic
