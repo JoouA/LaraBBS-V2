@@ -19,12 +19,40 @@ class RepliesController extends Controller
      */
     public function store(ReplyRequest $request,Topic $topic,Reply $reply)
     {
-//        $reply->content = clean($request->input('content'));
         $reply->content = $request->input('content');
         $reply->topic_id = $topic->id;
         $reply->user_id = $this->user()->id;
         $reply->save();
 
         return $this->response->item($reply,new ReplyTransformer())->setStatusCode(201);
+    }
+
+
+    /**
+     * 更新reply
+     * @param ReplyRequest $request
+     * @param Reply $reply
+     * @return \Dingo\Api\Http\Response
+     */
+    public function update(ReplyRequest $request,Reply $reply)
+    {
+        $this->authorize('update',$reply);
+        $reply->content = $request->input('content');
+        $reply->save();
+
+        return $this->response->item($reply,new ReplyTransformer());
+    }
+
+    /**
+     * 删除评论
+     * @param Reply $reply
+     * @return \Dingo\Api\Http\Response
+     */
+    public function destroy(Reply $reply)
+    {
+        $this->authorize('update',$reply);
+        $reply->delete();
+
+        return $this->response->noContent();
     }
 }

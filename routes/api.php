@@ -86,10 +86,14 @@ $api->version('v1',[
             // 删除话题
             $api->delete('topics/{topic}','TopicsController@destroy')->name('api.topics.destroy');
 
-            //发布话题
+            //发布评论
             $api->post('topics/{topic}/replies','RepliesController@store')->name('api.topics.replies.store');
 
+            // 更新评论
+            $api->patch('replies/{reply}','RepliesController@update')->name('api.replies.update');
 
+            // 删除评论
+            $api->delete('replies/{reply}','RepliesController@destroy')->name('api.replies.destroy');
 
 
         });

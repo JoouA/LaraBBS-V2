@@ -19,4 +19,14 @@ class ReplyPolicy extends  Policy
 
         return $user->isAuthorOf($reply) || $user->isAuthorOf($reply->topic);
     }
+
+    // update
+    public function update(User $user,Reply $reply)
+    {
+        if ($user->can('manage_contents')){
+            return true;
+        }
+
+        return $user->isAuthorOf($reply) || $user->isAuthorOf($reply->topic);
+    }
 }
