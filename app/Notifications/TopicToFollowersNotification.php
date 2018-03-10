@@ -66,7 +66,7 @@ class TopicToFollowersNotification extends Notification implements ShouldQueue
     {
         return [
             'topic_id' => $this->topic->id,
-            'topic_content' => str_limit($this->topic->body,500),
+            'topic_content' => str_limit($this->topic->body,50),
             'topic_link' => $this->topic->link(),
             'topic_title' => $this->topic->title,
             'user_id' => $this->topic->user->id,

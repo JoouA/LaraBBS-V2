@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Events\CreateTopic;
+use App\Events\CreateVote;
 use App\Handlers\ImageUploadHandlers;
 use App\Http\Requests\TopicRequest;
 use App\Models\Category;
 use App\Models\Link;
 use App\Models\Topic;
 use App\Models\User;
+use App\Notifications\VoteNotification;
 use Illuminate\Http\Request;
 use Log;
 use Auth;
@@ -198,7 +200,17 @@ class TopicsController extends Controller
         $user_link = route('users.show', Auth::id());
 
         try {
-            $topic->votes()->toggle($vote_id);
+            $result = $topic->votes()->toggle($vote_id);
+            $type = count($result['attached']);
+
+            // 如果是点赞就给通知
+            if (! empty($type)){
+                if (!Auth::user()->isAuthorOf($topic)){
+                    $topic->user->notify(new VoteNotification(Auth::user(),$topic));
+                }
+                event(new CreateVote(Auth::user(),$topic));
+            }
+
 
             return response()->json([
                 'vote_id' => $vote_id,
@@ -206,6 +218,7 @@ class TopicsController extends Controller
                 'status' => 'success',
                 'user_avatar' => $avatar,
                 'user_link' => $user_link,
+                'type' => $type,
             ]);
         } catch (\Exception $e) {
             Log::error($vote_id . ' id的用户赞' . $topic_id . ' id的专题失败');

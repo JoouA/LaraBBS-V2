@@ -27,9 +27,13 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\SendCreateTopicNotificationToFollowers',
         ],
 
-        // 当用户用户回复话题的时候，通知关注他的人
-        'App\Events\CreateReply' => [
-            'App\Listeners\SendCreateReplyNotificationToFollowers',
+        // 当用户点赞某个topic的时候通知这个作者
+        'App\Events\CreateVote' => [
+            'App\Listeners\SendCreateVoteNotificationToAuth',
+        ],
+        // 当用户点赞某个topic的时候通知关注他的人
+        'App\Events\CreateVote' => [
+            'App\Listeners\SendCreateVoteNotificationToFollowers',
         ],
 
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [

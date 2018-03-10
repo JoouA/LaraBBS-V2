@@ -2,29 +2,29 @@
 
 namespace App\Notifications;
 
-use App\Models\Reply;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ReplyToFollowersNotification extends Notification implements ShouldQueue
+class VoteNotification extends Notification
 {
     use Queueable;
 
-    protected $reply;
     protected $user;
+    protected $topic;
 
     /**
-     * ReplyToFollowersNotification constructor.
+     * VoteNotification constructor.
+     * @param Topic $topic
      * @param User $user
-     * @param Reply $reply
      */
-    public function __construct(User $user,Reply $reply)
+    public function __construct(User $user,Topic $topic)
     {
         $this->user = $user;
-        $this->reply = $reply;
+        $this->topic = $topic;
     }
 
     /**
@@ -60,26 +60,26 @@ class ReplyToFollowersNotification extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-
+        return [
+            //
+        ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
-        $topic = $this->reply->topic;
 
-        $link = $topic->link(['#reply'.$this->reply->id]);
-
-        // 谁reply了某一篇topic
-        // 存入数据库中的数据
         return [
-            'reply_id' => $this->reply->id,
-            'reply_content' => $this->reply->content,
             'user_id' => $this->user->id,
             'user_name' => $this->user->name,
             'user_avatar' => $this->user->avatar,
-            'topic_link' => $link,
-            'topic_id' => $topic->id,
-            'topic_title' => $topic->title,
+            'topic_id' => $this->topic->id,
+            'topic_title' => $this->topic->title,
+            'topic_content' => str_limit($this->topic->body,500),
+            'topic_link' => $this->topic->link(),
         ];
     }
 }
