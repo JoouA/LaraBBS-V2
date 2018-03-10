@@ -3,11 +3,11 @@
 namespace App\Listeners;
 
 use App\Events\CreateTopic;
-use App\Notifications\FollowersNotification;
+use App\Notifications\TopicToFollowersNotification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendNotificationToFollowers
+class SendCreateTopicNotificationToFollowers
 {
     /**
      * Create the event listener.
@@ -34,7 +34,7 @@ class SendNotificationToFollowers
 
         if (count($followers)){
             foreach ($followers as $follower){
-                $follower->notify(new FollowersNotification($topic));
+                $follower->notify(new TopicToFollowersNotification($topic));
             }
         }
 

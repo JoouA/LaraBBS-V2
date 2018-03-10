@@ -2,26 +2,29 @@
 
 namespace App\Notifications;
 
-use App\Models\Topic;
+use App\Models\Reply;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class FollowersNotification extends Notification implements ShouldQueue
+class ReplyToFollowersNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $topic;
+    protected $reply;
+    protected $user;
 
     /**
-     * Create a new notification instance.
-     * @param Topic $topic
-     * @return void
+     * ReplyToFollowersNotification constructor.
+     * @param User $user
+     * @param Reply $reply
      */
-    public function __construct(Topic $topic)
+    public function __construct(User $user,Reply $reply)
     {
-        $this->topic = $topic;
+        $this->user = $user;
+        $this->reply = $reply;
     }
 
     /**
@@ -57,21 +60,21 @@ class FollowersNotification extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
-    }
+        $topic = $this->reply->topic;
 
-    public function toDatabase($notifiable)
-    {
+        $link = $topic->link(['#reply'.$this->reply->id]);
+
+        // 谁reply了某一篇topic
+        // 存入数据库中的数据
         return [
-            'topic_id' => $this->topic->id,
-            'topic_content' => str_limit($this->topic->body,500),
-            'topic_link' => $this->topic->link(),
-            'topic_title' => $this->topic->title,
-            'user_id' => $this->topic->user->id,
-            'user_name' => $this->topic->user->name,
-            'user_avatar' => $this->topic->user->avatar,
+            'reply_id' => $this->reply->id,
+            'reply_content' => $this->reply->content,
+            'user_id' => $this->user->id,
+            'user_name' => $this->user->name,
+            'user_avatar' => $this->user->avatar,
+            'topic_link' => $link,
+            'topic_id' => $topic->id,
+            'topic_title' => $topic->title,
         ];
     }
 }

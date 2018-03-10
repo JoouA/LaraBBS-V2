@@ -24,16 +24,21 @@ class EventServiceProvider extends ServiceProvider
         ],
         // 当用户创建Topic的时候，发消息给那些关注他的人
         'App\Events\CreateTopic' => [
-            'App\Listeners\SendNotificationToFollowers',
+            'App\Listeners\SendCreateTopicNotificationToFollowers',
+        ],
+
+        // 当用户用户回复话题的时候，通知关注他的人
+        'App\Events\CreateReply' => [
+            'App\Listeners\SendCreateReplyNotificationToFollowers',
         ],
 
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             // add your listeners (aka providers) here
             'SocialiteProviders\Weixin\WeixinExtendSocialite@handle'
         ],
-        'eloquent.created: Illuminate\Notifications\DatabaseNotification' => [
+        /*'eloquent.created: Illuminate\Notifications\DatabaseNotification' => [
             'App\Listeners\PushNotification',
-        ],
+        ],*/
 
     ];
 
