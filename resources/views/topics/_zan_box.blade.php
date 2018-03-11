@@ -8,7 +8,7 @@
             </div>
         @else
             <div class="btn-group">
-                <a href="{{ route('login') }}" class="btn btn-primary" >'点赞' </a>
+                <a href="{{ route('login') }}" class="btn btn-primary" >点赞</a>
             </div>
         @endif
         <div class="voted-users">

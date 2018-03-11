@@ -36,6 +36,12 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\SendCreateVoteNotificationToFollowers',
         ],
 
+        //当创建reply的时候，给关注他的用户通知
+        'App\Events\CreateReply' => [
+            'App\Listeners\SendCreateReplyNotificationToFollowers',
+        ],
+
+
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             // add your listeners (aka providers) here
             'SocialiteProviders\Weixin\WeixinExtendSocialite@handle'
