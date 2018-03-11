@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateFollow;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use App\Notifications\FollowNotification;
 use Illuminate\Http\Request;
 use App\Handlers\ImageUploadHandlers;
 use Auth;
@@ -206,13 +208,22 @@ class UsersController extends Controller
     public function follow(User $user)
     {
         try{
-            Auth::user()->toggleFollow($user);
+            $result = Auth::user()->toggleFollow($user);
+
+            $is_follow = (boolean)count($result['attached']);
+
+            if ($is_follow){
+                $user->notify(new FollowNotification(Auth::user(),$user));
+                event(new CreateFollow(Auth::user(),$user));
+            }
 
             return response()->json([
                 'status' => 1,
                 'msg' => 'success!',
                 'user_id' => Auth::id(),
                 'followable_id' => $user->id,
+                'result' => $result,
+                'is_follow' => $is_follow,
             ]);
 
         }Catch(\Exception $e){

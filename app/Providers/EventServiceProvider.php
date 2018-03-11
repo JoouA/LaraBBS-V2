@@ -41,6 +41,11 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\SendCreateReplyNotificationToFollowers',
         ],
 
+        // 当用户关注某人的时候，给关注他的人通知
+        'App\Events\CreateFollow' => [
+            'App\Listeners\SendCreateFollowNotificationToFollowers',
+        ],
+
 
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             // add your listeners (aka providers) here
