@@ -75,10 +75,14 @@ $api->version('v1',[
         // 推荐资源接口
         $api->get('links','LinksController@index')->name('api.links.index');
 
-
         // 活跃用户接口
         $api->get('users/actived','UsersController@activeUsers')->name('api.users.actived');
 
+        // 关注用户接口
+        $api->get('users/{user}/followers','UsersController@followers')->name('api.user.followers');
+
+        // 被关注用户的接口
+        $api->get('users/{user}/followings','UsersController@followings')->name('api.user.followings');
 
         //需要token的接口
         $api->group([ 'middleware' => 'api.auth' ],function ($api){
@@ -118,9 +122,11 @@ $api->version('v1',[
             // 标记消息为已读
             $api->patch('user/read/notifications','NotificationsController@read')->name('api.user.notifications.read');
 
-
             // 当前登录用户的权限
             $api->get('user/permissions','PermissionsController@index')->name('api.user.permissions.index');
+
+            // 对topic进行点赞
+            $api->post('topics/{topic}/vote','TopicsController@vote')->name('api.topics.topic.vote');
 
         });
     });

@@ -80,4 +80,27 @@ class UsersController extends Controller
 
         return $this->response->collection($users,new UserTransformer());
     }
+
+    /**
+     * @param User $user
+     * @return \Dingo\Api\Http\Response
+     */
+    public function followers(User $user)
+    {
+        $followers = $user->followers()->orderBy('pivot_created_at','desc')->get();
+
+        return $this->response->collection($followers,new UserTransformer());
+    }
+
+    /**
+     * @param User $user
+     * @return \Dingo\Api\Http\Response
+     */
+    public function followings(User $user)
+    {
+        $followings = $user->followings()->orderBy('pivot_created_at','desc')->get();
+
+        return $this->response->collection($followings,new UserTransformer());
+
+    }
 }

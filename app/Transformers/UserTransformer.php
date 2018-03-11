@@ -6,7 +6,7 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['roles'];
+    protected $availableIncludes = ['roles','followers','followings'];
 
     public function transform(User $user)
     {
@@ -25,8 +25,35 @@ class UserTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * 返回user的角色信息
+     * @param User $user
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includeRoles(User $user)
     {
         return $this->collection($user->roles,new RoleTransformer());
+    }
+
+    /**
+     * 获得followers的信息
+     * @param User $user
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeFollowers(User $user)
+    {
+        $followers = $user->followers()->orderBy('pivot_created_at','desc')->get();
+        return $this->collection($followers,new UserTransformer());
+    }
+
+    /**
+     * 获得followings的信息
+     * @param User $user
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeFollowings(User $user)
+    {
+        $followings = $user->followings()->orderBy('pivot_created_at','desc')->get();
+        return $this->collection($followings,new UserTransformer());
     }
 }
