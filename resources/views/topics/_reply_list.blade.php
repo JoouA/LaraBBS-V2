@@ -3,8 +3,8 @@
         @foreach($replies as $reply)
             <div class="media" name="reply{{ $reply->id }}" id="reply{{ $reply->id }}">
                 <div class="avatar pull-left">
-                    <a href="">
-                        <img  class="media-object img-thumbnail" src="{{ $reply->user->avatar }}"
+                    <a href="{{ route('users.show',$reply->user->id) }}">
+                        <img  class="media-object img-thumbnail img-circle" src="{{ $reply->user->avatar }}"
                              style="width: 48px;height: 48px" alt="{{ $reply->user->name }}">
                     </a>
                 </div>

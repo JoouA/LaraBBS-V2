@@ -90,8 +90,7 @@ class TopicsController extends Controller
     public function show(Topic $topic)
     {
         //当用户访问某一个topic，就让view_count增加一
-
-         $topic->increment('view_count');
+        $topic->increment('view_count');
 
         // url 矫正
         if (!empty($topic->slug) && $topic->slug != \request()->slug) {
