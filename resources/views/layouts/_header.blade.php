@@ -86,6 +86,13 @@
                                         Redis管理
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('logs') }}">
+                                        <span class="glyphicon glyphicon-list-alt">
+                                            logs日志查看
+                                        </span>
+                                    </a>
+                                </li>
                             @endif
                             <li>
                                 <a href="{{ route('users.show',Auth::id()) }}">

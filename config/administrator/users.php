@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\User;
 
 return [
@@ -13,7 +14,7 @@ return [
 
     // 设置当前页面的访问权限，通过返回布尔值来控制权限。
     // 返回 True 即通过权限验证，False 则无权访问并从 Menu 中隐藏
-    'permission' => function(){
+    'permission' => function () {
         return Auth::user()->can('manage_users');
     },
 
@@ -28,8 +29,8 @@ return [
 
             // 默认情况下会直接输出数据，你也可以使用 output 选项来定制输出内容
 
-            'output' => function($avatar,$model){
-                return empty($avatar)? 'N/A' : '<img src="'.$avatar.'" width="40">';
+            'output' => function ($avatar, $model) {
+                return empty($avatar) ? 'N/A' : '<img src="' . $avatar . '" width="40">';
             },
 
             // 是否允许排序
@@ -41,17 +42,37 @@ return [
 
             'sortable' => false,
 
-            'output' => function($name,$model){
-                return '<a href="/users/'.$model->id.'" target="_bank">'.$name.'</a>';
+            'output' => function ($name, $model) {
+                return '<a href="/users/' . $model->id . '" target="_bank">' . $name . '</a>';
             },
         ],
 
         'email' => [
-            'title' => '邮箱'
+            'title' => '邮箱',
+            'output' => function ($email) {
+                return $email ?: 'NULL';
+            },
         ],
 
         'mobile' => [
             'title' => '手机号码',
+            'output' => function ($mobile) {
+                return $mobile ?: 'NULL';
+            }
+        ],
+
+        'weixin_openid' => [
+            'title' => '微信openid',
+            'output' => function ($weixin_openid) {
+                return $weixin_openid ?: 'NULL';
+            }
+        ],
+
+        'weixin_unionid' => [
+            'title' => '微信unionid',
+            'output' => function($weixin_unionid) {
+                return $weixin_unionid ?: 'NULL';
+            }
         ],
 
         'operation' => [
@@ -82,13 +103,13 @@ return [
             'type' => 'image',
 
             // 图片上传必须设置图片存放路径
-            'location' => public_path(). '/uploads/images/avatars/adminChange/',
+            'location' => public_path() . '/uploads/images/avatars/adminChange/',
         ],
         'roles' => [
             'title' => '用户角色',
 
             // 指定数据的类型为关联模型
-            'type'       => 'relationship',
+            'type' => 'relationship',
 
             // 关联模型的字段，用来做关联显示
             'name_field' => 'name',

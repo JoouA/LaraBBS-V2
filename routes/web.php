@@ -83,4 +83,4 @@ Route::get('messages/to/{user}','MessagesController@create')->name('messages.cre
 Route::post('messages','MessagesController@store')->name('messages.store');
 
 
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('founder');
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs')->middleware('founder');
